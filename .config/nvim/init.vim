@@ -7,7 +7,7 @@
 " Plugins
 call plug#begin()
 
-Plug 'https://github.com/vim-airline/vim-airline' " Status bar
+Plug 'https://github.com/nvim-lualine/lualine.nvim' " Status bar
 Plug 'https://github.com/preservim/nerdtree' " NERDTree
 Plug 'https://github.com/tpope/vim-commentary' " Comments - gcc
 Plug 'https://github.com/rafi/awesome-vim-colorschemes' " Colorschemes (Favs: purify, minimalist, nord, pyte, onedark, oceanic_material, tender, 
@@ -15,6 +15,7 @@ Plug 'https://github.com/rafi/awesome-vim-colorschemes' " Colorschemes (Favs: pu
 														" To get a list with all themes, run: 
 														" ls $HOME/.local/share/nvim/plugged/awesome-vim-colorschemes/colors
 Plug 'https://github.com/preservim/tagbar' " Tagbar - requires ctags
+Plug 'https://github.com/neovim/nvim-lspconfig'
 
 call plug#end()
 
@@ -45,3 +46,37 @@ nnoremap <F6> :TagbarToggle <CR>
 
 " Colorscheme
 :colorscheme sonokai
+
+" Lua code
+lua << END
+-- Lualine config
+require('lualine').setup {
+  options = {
+    icons_enabled = true,
+    theme = 'auto',
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    disabled_filetypes = {},
+    always_divide_middle = true,
+    globalstatus = false,
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {'filename'},
+    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {},
+  extensions = {}
+}
+END
