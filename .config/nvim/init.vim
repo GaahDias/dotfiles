@@ -15,9 +15,18 @@ Plug 'https://github.com/rafi/awesome-vim-colorschemes' " Colorschemes (Favs: pu
 														" To get a list with all themes, run: 
 														" ls $HOME/.local/share/nvim/plugged/awesome-vim-colorschemes/colors
 Plug 'https://github.com/preservim/tagbar' " Tagbar - requires ctags
-Plug 'https://github.com/neovim/nvim-lspconfig'
+Plug 'https://github.com/neovim/nvim-lspconfig' " Language server
+Plug 'https://github.com/hrsh7th/nvim-cmp' " Autocomplete
+Plug 'https://github.com/hrsh7th/cmp-nvim-lsp' " Ac stuff
+Plug 'https://github.com/hrsh7th/cmp-buffer' " Ac stuff
+Plug 'https://github.com/hrsh7th/cmp-path' " Ac stuff
+Plug 'https://github.com/hrsh7th/cmp-cmdline' " Ac stuff
+Plug 'https://github.com/hrsh7th/cmp-vsnip' " Ac stuff
+Plug 'https://github.com/hrsh7th/vim-vsnip' " Ac stuff
 
 call plug#end()
+
+:set completeopt=menu,menuone,noselect
 
 " NERDTree (nt) config:
 " Starts nt with nvim
@@ -79,4 +88,51 @@ require('lualine').setup {
   tabline = {},
   extensions = {}
 }
+
+--Nvim lsp (https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md)
+require'lspconfig'.pyright.setup{} -- Python
+require'lspconfig'.sumneko_lua.setup{} -- Lua
+
+-- Nvim-cmp (Autocomplete)
+local cmp = require'cmp'
+
+  cmp.setup({
+    snippet = {
+      -- REQUIRED - you must specify a snippet engine
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+      end,
+    },
+    mapping = {
+      ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+      ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+      ['<C-e>'] = cmp.mapping({
+        i = cmp.mapping.abort(),
+        c = cmp.mapping.close(),
+      }),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    },
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+	  { name = 'path' },
+    }, {
+      { name = 'buffer' },
+    })
+  })
+
+  -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline('/', {
+    sources = {
+      { name = 'buffer' }
+    }
+  })
+
+  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline(':', {
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    })
+  })
 END
