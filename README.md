@@ -2,7 +2,7 @@
 
 Just the config for my Linux environment. It's not that great yet, I'm still tweaking it.
 
-
+<br/>
 
 ### Info
 
@@ -31,8 +31,8 @@ Just the config for my Linux environment. It's not that great yet, I'm still twe
   * File manager - Dolphin & Ranger
   
   * Browser - Firefox
-  
-  
+
+<br/>
 
 ### Screenshots
 
