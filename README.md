@@ -38,4 +38,4 @@ Just the config for my Linux environment. It's not that great yet, I'm still twe
 
 ![KDE desktop](screenshots/KDE_desktop.jpg)
 
-[Firefox](screenshots/firefox.jpg)
+![Firefox](screenshots/firefox.jpg)
