@@ -36,6 +36,6 @@ Just the config for my Linux environment. It's not that great yet, I'm still twe
 
 ### Screenshots
 
-![KDE_desktop.jpg](screenshots/KDE_desktop.jpg)
+![KDE desktop](screenshots/KDE_desktop.jpg)
 
-![firefox.jpg](/home/gaah/.dotfiles/screenshots/firefox.jpg)
+[Firefox](screenshots/firefox.jpg)
