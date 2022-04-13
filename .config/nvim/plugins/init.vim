@@ -1,6 +1,7 @@
 " Plugins
 call plug#begin()
 
+Plug 'norcalli/nvim-colorizer.lua' " RGB and Hex colors
 Plug 'nvim-lualine/lualine.nvim' " Status bar
 Plug 'preservim/nerdtree' " NERDTree
 Plug 'tpope/vim-commentary' " Comments - gcc
@@ -22,6 +23,10 @@ Plug 'andweeb/presence.nvim' " Discord rich presence
 Plug 'glepnir/dashboard-nvim' " Dashboard
 Plug 'nvim-telescope/telescope.nvim' " Fuzzy finder, and also a Dashboard dependencie 
 Plug 'nvim-lua/plenary.nvim' " Telescope dependencie
+Plug 'kyazdani42/nvim-web-devicons' " Icons
+Plug 'romgrk/barbar.nvim' " Files bar
+Plug 'akinsho/toggleterm.nvim' " Terminal
+Plug 'KabbAmine/vCoolor.vim' " Color picker
 
 call plug#end()
 
@@ -29,6 +34,9 @@ call plug#end()
 source ~/.config/nvim/plugins/configs/dashboard.vim
 source ~/.config/nvim/plugins/configs/nerdtree.vim
 source ~/.config/nvim/plugins/configs/rich-presence.vim
-source ~/.config/nvim/plugins/configs/lualine.lua
-source ~/.config/nvim/plugins/configs/cmp.lua
-source ~/.config/nvim/plugins/configs/lsp.lua
+
+luafile ~/.config/nvim/plugins/configs/lualine.lua
+luafile ~/.config/nvim/plugins/configs/cmp.lua
+luafile ~/.config/nvim/plugins/configs/lsp.lua
+luafile ~/.config/nvim/plugins/configs/colorizer.lua
+luafile ~/.config/nvim/plugins/configs/toggleterm.lua
