@@ -3,7 +3,7 @@ local apps = {}
 -- Default apps:
 local defaultApps = {terminal = "alacritty",
         player = "vlc",
-        editor = "leafpad",
+        editor = "neovim",
         browser = "firefox",
         music = "spotify",
         markdown = "marktext",
