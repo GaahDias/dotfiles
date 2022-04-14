@@ -1,6 +1,19 @@
 " NERDTree (nt) config:
-" Starts nt with nvim
-autocmd vimEnter * NERDTree | wincmd p
+" Start NERDTree when Vim starts with a directory argument.
+function! StartUp()
+    if 0 == argc()
+        NERDTree ~/
+    else
+        if argv(0) == '.'
+            execute 'NERDTree' getcwd()
+        else
+            execute 'NERDTree' getcwd() . '/' . argv(0)
+        endif
+    endif
+endfunction
+
+autocmd VimEnter * call StartUp()
+autocmd VimEnter * wincmd p
 
 " Quit nt if it's the only window left
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif

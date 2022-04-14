@@ -1,15 +1,15 @@
 " Keymaps
 " Nerdtree, tagbar, term and ranger (see toggleterm.lua) toggles
-nnoremap <F5> :call NtToggle() <CR>
-nnoremap <F6> :TagbarToggle <CR>
-nnoremap <F7> :ToggleTerm <CR>
-nnoremap <F8> :lua _RANGER_TOGGLE() <CR>
-nnoremap <F9> :lua _HTOP_TOGGLE() <CR>
+nnoremap <silent> <F5> :call NtToggle() <CR>
+nnoremap <silent> <F6> :TagbarToggle <CR>
+nnoremap <silent> <F7> :TermExec cmd="clear" <CR>
+nnoremap <silent> <F8> :lua _RANGER_TOGGLE() <CR>
+nnoremap <silent> <F9> :lua _HTOP_TOGGLE() <CR>
 
 " Quit, write, w&q
 nnoremap <C-q> :q! <CR>
-nnoremap <C-w> :w! <CR>
-nnoremap <C-s> :wq <CR>
+" nnoremap <C-w> :w! <CR>
+nnoremap <C-s> :w <CR>
 
 " Color picker
 nnoremap <A-h> :VCoolor <CR>
