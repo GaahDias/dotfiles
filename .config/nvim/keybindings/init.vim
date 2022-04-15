@@ -2,7 +2,7 @@
 " Nerdtree, tagbar, term and ranger (see toggleterm.lua) toggles
 nnoremap <silent> <F5> :call NtToggle() <CR>
 nnoremap <silent> <F6> :TagbarToggle <CR>
-nnoremap <silent> <F7> :TermExec cmd="clear" <CR>
+nnoremap <silent> <F7> :ToggleTerm <CR>
 nnoremap <silent> <F8> :lua _RANGER_TOGGLE() <CR>
 nnoremap <silent> <F9> :lua _HTOP_TOGGLE() <CR>
 
