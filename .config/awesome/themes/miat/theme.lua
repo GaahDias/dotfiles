@@ -34,7 +34,7 @@ theme.fg_focus      = theme.secundary_fg_color
 theme.fg_urgent     = theme.secundary_fg_color
 theme.fg_minimize   = theme.secundary_fg_color
 
-theme.useless_gap   = dpi(8.5)
+theme.useless_gap   = dpi(7.5)
 theme.border_width  = dpi(3)
 theme.border_normal = theme.secundary_color
 theme.border_focus  = theme.primary_color
@@ -66,11 +66,9 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 theme.notification_font = theme.font_type .. tostring(dpi(8))
 theme.notification_bg = theme.primary_bg_color .. "bf"
 theme.notification_fg = theme.secundary_fg_color
-theme.notification_width = dpi(425)
+theme.notification_width = dpi(380)
 theme.notification_height = dpi(75)
 theme.notification_margin = dpi(10)
-theme.notification_border_color = theme.urgent_color
-theme.notification_border_width = dpi(2.5)
 
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]

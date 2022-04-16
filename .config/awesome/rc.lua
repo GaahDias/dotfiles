@@ -25,7 +25,6 @@ local dpi = require("beautiful.xresources").apply_dpi
 local default_apps = require('util.apps').getApps()
 
 
-
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -102,6 +101,7 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                         })
 
 mylauncher = awful.widget.launcher({ image = beautiful.arch_logo,
+									 halign = "left",
                                      menu = mymainmenu })
 
 -- Menubar configuration
@@ -114,6 +114,12 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- {{{ Wibar
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
+
+-- Margin widget for spacing in the wibar
+margin_widget = wibox.container{
+	margins = 5,
+	widget = wibox.container.margin,
+}
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -172,8 +178,8 @@ screen.connect_signal("property::geometry", set_wallpaper)
 
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
-    set_wallpaper(s)
-
+    -- set_wallpaper(s)
+	
     -- Each screen has its own tag table.
     awful.tag({ "main", "www", "code", "apps" }, s, awful.layout.layouts[1])
 
@@ -201,12 +207,21 @@ awful.screen.connect_for_each_screen(function(s)
         buttons = tasklist_buttons
     }
 
-    -- Create the wibox
-	local custom_shape = function(cr, width, height)
-		gears.shape.rounded_rect(cr, width, height, 18.5)
-	end
+    -- Create the wibar
+    s.mywibox = awful.wibar({ border_width = 6.5, height = dpi(38), position = "top", shape = 
+		function(cr, width, height) gears.shape.rounded_rect(cr, width, height, 24) end})
 
-    s.mywibox = awful.wibar({ border_width = 7.5, height = 38, width = dpi(50 * 38.78), position = "top", shape = custom_shape, screen = s })
+	-- Create systray wibox
+	s.systraywibox = wibox({ border_width = 0, height = dpi(40), width = dpi(120), ontop = true,
+		x = (s.mywibox.width - 115), y = (s.mywibox.height + 15), visible = false })
+
+	systray_launcher_widget = wibox.widget{
+						font = beautiful.font_type .. tostring(dpi(11)),
+						text = "V",
+						align = "center",
+						valign = "center",
+						buttons = awful.button({ }, 1, function() s.systraywibox.visible = not s.systraywibox.visible end),
+						widget = wibox.widget.textbox }
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -214,23 +229,34 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             mylauncher,
+			margin_widget,
             s.mytaglist,
-            s.mypromptbox,
         },
-        s.mytasklist, -- Middle widget
+        nil, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+			margin_widget,
 			volume_widget{
 				widget_type = 'arc',
 				main_color = beautiful.primary_color,
 				mute_color = beautiful.urgent_color,
 				size = 25,
 				thickness = 3.5},
-            wibox.widget.systray(),
+			margin_widget,
             mytextclock,
-            s.mylayoutbox,
-        },
+			margin_widget,
+			systray_launcher_widget,
+			margin_widget,
+        }
     }
+
+	s.systraywibox:setup {
+		layout = wibox.layout.align.horizontal,
+		{ layout = wibox.layout.fixed.horizontal },
+		wibox.widget.systray(),
+		s.mylayoutbox,
+		{ layout = wibox.layout.fixed.horizontal }
+	}
 end)
 -- }}}
 -- {{{ Mouse bindings
@@ -249,6 +275,7 @@ globalkeys = gears.table.join(
               {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
+
 
     awful.key({ modkey,           }, "Right",
         function ()
@@ -347,11 +374,11 @@ globalkeys = gears.table.join(
 
 	-- Multimedia
 	awful.key({ }, "XF86AudioRaiseVolume", function()
-		awful.util.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%") end),
+		volume_widget:inc(5) end),
 	awful.key({ }, "XF86AudioLowerVolume", function()
-		awful.util.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%") end),
+		volume_widget:dec(5) end),
 	awful.key({ }, "XF86AudioMute", function()
-		awful.util.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle") end),
+		volume_widget:toggle() end),
 
 	-- Wallpaper
 	awful.key({ modkey, "Shift" }, "w", function() 
