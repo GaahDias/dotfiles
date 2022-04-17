@@ -1,6 +1,7 @@
----------------------------
--- Default awesome theme --
----------------------------
+----------------------------------------
+-- MIAT (My Incredible Awesome Theme) --
+--            by: Gaah                --
+----------------------------------------
 
 local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
@@ -11,34 +12,56 @@ local themes_path = "~/.config/awesome/themes/"
 
 local theme = {}
 
--- Defining theme colors and font
-theme.primary_color      = "#236FE3"
-theme.secundary_color    = "#6DA3E7"
-theme.primary_bg_color   = "#211F1F"
-theme.secundary_bg_color = "#171616"
-theme.urgent_color       = "#6F26E7"
-theme.primary_fg_color   = "#C1BDBD"
-theme.secundary_fg_color = "#E9E5E5"
-theme.font_type          = "Sans "
+-- Defining theme main colors
+theme.dark_primary_color      = "#226DE0"
+theme.light_primary_color     = "#6DA3E7"
+theme.dark_secundary_color    = "#6F26E7"
+theme.light_secundary_color   = "#8A6AE9"
+theme.primary_bg_color        = "#1A1919"
+theme.secundary_bg_color      = "#232222"
+theme.primary_fg_color        = "#C1BDBD"
+theme.secundary_fg_color      = "#E9E5E5"
 
-theme.font = theme.font_type .. tostring(dpi(9))
+-- Font
+theme.font_type  = "Sans "
+theme.font       = theme.font_type .. tostring(dpi(9))
 
-theme.bg_normal     = theme.primary_bg_color .. "b3"
-theme.bg_focus      = theme.secundary_bg_color .. "bf"
-theme.bg_urgent     = theme.urgent_color .. "b3"
-theme.bg_minimize   = theme.primary_bg_color .. "b3"
-theme.bg_systray    = theme.primary_bg_color .. "b3"
+-- Background
+theme.bg_normal     = theme.secundary_bg_color .. "b3"
+theme.bg_focus      = theme.primary_bg_color .. "bf"
+theme.bg_urgent     = theme.dark_secundary_color .. "b3"
+theme.bg_minimize   = theme.secundary_bg_color .. "b3"
 
+-- Foreground
 theme.fg_normal     = theme.primary_fg_color
 theme.fg_focus      = theme.secundary_fg_color
 theme.fg_urgent     = theme.secundary_fg_color
 theme.fg_minimize   = theme.secundary_fg_color
 
+-- Border and gap
 theme.useless_gap   = dpi(7.5)
 theme.border_width  = dpi(3)
-theme.border_normal = theme.secundary_color
-theme.border_focus  = theme.primary_color
-theme.border_marked = theme.urgent_color
+theme.border_normal = theme.light_primary_color
+theme.border_focus  = theme.dark_primary_color
+theme.border_marked = theme.dark_secundary_color
+
+-- Systray
+theme.bg_systray            = theme.secundary_bg_color .. "b3"
+theme.systray_icon_spacing  = dpi(5)
+
+-- Notification
+theme.notification_font    = theme.font_type .. tostring(dpi(8))
+theme.notification_bg      = theme.secundary_bg_color .. "bf"
+theme.notification_fg      = theme.secundary_fg_color
+theme.notification_width   = dpi(380)
+theme.notification_height  = dpi(75)
+theme.notification_margin  = dpi(10)
+
+-- Progressbar
+theme.progressbar_bg            = theme.secundary_bg_color .. "b3"
+theme.progressbar_fg            = theme.light_secundary_color .. "cc"
+theme.progressbar_border_color  = theme.dark_primary_color
+theme.progressbar_border_width  = dpi(10)
 
 -- There are other variable sets
 -- overriding the miat one when
@@ -63,13 +86,6 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 )
 
 -- Variables set for theming notifications:
-theme.notification_font = theme.font_type .. tostring(dpi(8))
-theme.notification_bg = theme.primary_bg_color .. "bf"
-theme.notification_fg = theme.secundary_fg_color
-theme.notification_width = dpi(380)
-theme.notification_height = dpi(75)
-theme.notification_margin = dpi(10)
-
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]

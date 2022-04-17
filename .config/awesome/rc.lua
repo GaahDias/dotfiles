@@ -15,14 +15,16 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 --Volume Widget
-local volume_widget = require('awesome-wm-widgets.volume-widget.volume')
+local volume_widget = require('config.widgets.volume')
+-- CPU Widget
+local cpu_widget = require("config.widgets.cpu")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
 local dpi = require("beautiful.xresources").apply_dpi
 
-local default_apps = require('util.apps').getApps()
+local default_apps = require('config.util.apps')
 
 
 -- {{{ Error handling
@@ -208,12 +210,12 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create the wibar
-    s.mywibox = awful.wibar({ border_width = 6.5, height = dpi(38), position = "top", shape = 
+    s.mywibox = awful.wibar({ border_width = 6.5, height = dpi(40), position = "top", shape = 
 		function(cr, width, height) gears.shape.rounded_rect(cr, width, height, 24) end})
 
 	-- Create systray wibox
-	s.systraywibox = wibox({ border_width = 0, height = dpi(40), width = dpi(120), ontop = true,
-		x = (s.mywibox.width - 115), y = (s.mywibox.height + 15), visible = false })
+	s.systraywibox = wibox({ border_width = 0, height = dpi(45), width = dpi(90), ontop = true,
+		x = (s.mywibox.width - 90), y = (s.mywibox.height + 15), visible = false })
 
 	systray_launcher_widget = wibox.widget{
 						font = beautiful.font_type .. tostring(dpi(11)),
@@ -222,6 +224,18 @@ awful.screen.connect_for_each_screen(function(s)
 						valign = "center",
 						buttons = awful.button({ }, 1, function() s.systraywibox.visible = not s.systraywibox.visible end),
 						widget = wibox.widget.textbox }
+
+	systray_widget = wibox.widget{
+		{
+			id = "systray",
+			opacity = 0.8,
+			widget = wibox.widget.systray
+		},
+		margins = 5,
+		layout = wibox.container.margin,
+	}
+	systray_widget.systray:set_horizontal(true)
+	systray_widget.systray:set_base_size(dpi(34.5))
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -235,13 +249,9 @@ awful.screen.connect_for_each_screen(function(s)
         nil, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+			cpu_widget,
 			margin_widget,
-			volume_widget{
-				widget_type = 'arc',
-				main_color = beautiful.primary_color,
-				mute_color = beautiful.urgent_color,
-				size = 25,
-				thickness = 3.5},
+			volume_widget,
 			margin_widget,
             mytextclock,
 			margin_widget,
@@ -251,11 +261,15 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
 	s.systraywibox:setup {
-		layout = wibox.layout.align.horizontal,
-		{ layout = wibox.layout.fixed.horizontal },
-		wibox.widget.systray(),
-		s.mylayoutbox,
-		{ layout = wibox.layout.fixed.horizontal }
+		layout = wibox.layout.flex.horizontal,
+		{
+			layout = wibox.layout.fixed.horizontal,
+			systray_widget,
+		},
+		{
+			layout = wibox.layout.fixed.horizontal,
+			s.mylayoutbox,
+		}
 	}
 end)
 -- }}}
