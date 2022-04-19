@@ -396,6 +396,12 @@ globalkeys = gears.table.join(
 		volume_widget:dec(5) end),
 	awful.key({ }, "XF86AudioMute", function()
 		volume_widget:toggle() end),
+	awful.key({ }, "XF86AudioPlay", function()
+		awful.util.spawn("playerctl play-pause") end),
+	awful.key({ }, "XF86AudioNext", function()
+		awful.util.spawn("playerctl next") end),
+	awful.key({ }, "XF86AudioPrev", function()
+		awful.util.spawn("playerctl previous") end),
 
 	-- Wallpaper
 	awful.key({ modkey, "Shift" }, "w", function() 
