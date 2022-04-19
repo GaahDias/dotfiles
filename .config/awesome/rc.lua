@@ -18,6 +18,8 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 local volume_widget = require('config.widgets.volume')
 -- CPU Widget
 local cpu_widget = require("config.widgets.cpu")
+-- RAM Widget
+local ram_widget = require("config.widgets.ram")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -249,6 +251,7 @@ awful.screen.connect_for_each_screen(function(s)
         nil, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+			ram_widget,
 			cpu_widget,
 			margin_widget,
 			volume_widget,
