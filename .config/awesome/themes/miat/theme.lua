@@ -54,6 +54,7 @@ theme.hotkeys_border_color  = theme.dark_primary_color
 -- Systray
 theme.bg_systray            = theme.secundary_bg_color .. "b3"
 theme.systray_icon_spacing  = dpi(5)
+theme.systray_max_rows      = 2
 
 -- Notification
 theme.notification_font    = theme.font_type .. tostring(dpi(8))

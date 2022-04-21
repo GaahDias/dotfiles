@@ -216,11 +216,11 @@ awful.screen.connect_for_each_screen(function(s)
 		function(cr, width, height) gears.shape.rounded_rect(cr, width, height, 24) end})
 
 	-- Create systray wibox
-	s.systraywibox = wibox({ border_width = 0, height = dpi(45), width = dpi(90), ontop = true,
+	s.systraywibox = wibox({ border_width = 0, height = dpi(48), width = dpi(95), ontop = true,
 		x = (s.mywibox.width - 90), y = (s.mywibox.height + 15), visible = false })
 
 	systray_launcher_widget = wibox.widget{
-						font = beautiful.font_type .. tostring(dpi(11)),
+						font = beautiful.font_type .. 11.5,
 						text = "V",
 						align = "center",
 						valign = "center",
@@ -236,8 +236,7 @@ awful.screen.connect_for_each_screen(function(s)
 		margins = 5,
 		layout = wibox.container.margin,
 	}
-	systray_widget.systray:set_horizontal(true)
-	systray_widget.systray:set_base_size(dpi(34.5))
+	systray_widget.systray:set_horizontal(false)
 
     -- Add widgets to the wibox
     s.mywibox:setup {
