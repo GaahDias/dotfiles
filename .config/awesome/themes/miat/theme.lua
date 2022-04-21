@@ -45,6 +45,12 @@ theme.border_normal = theme.light_primary_color
 theme.border_focus  = theme.dark_primary_color
 theme.border_marked = theme.dark_secundary_color
 
+-- Hotkeys
+theme.hotkeys_bg            = theme.primary_bg_color .. "bf"
+theme.hotkeys_fg            = theme.primary_fg_color
+theme.hotkeys_modifiers_fg  = theme.primary_fg_color
+theme.hotkeys_border_color  = theme.dark_primary_color
+
 -- Systray
 theme.bg_systray            = theme.secundary_bg_color .. "b3"
 theme.systray_icon_spacing  = dpi(5)

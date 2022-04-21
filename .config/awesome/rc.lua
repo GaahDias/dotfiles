@@ -366,9 +366,16 @@ globalkeys = gears.table.join(
               end,
               {description = "restore minimized", group = "client"}),
 
-    -- Prompt
-    awful.key({ modkey },            "r",     function () awful.spawn("rofi -show run") end,
-              {description = "run prompt", group = "launcher"}),
+    -- Rofi
+    awful.key({ modkey }, "r", function()
+		awful.spawn("rofi -show drun -show-icons -theme miat") end,
+        {description = "rofi drun", group = "launcher"}),
+	awful.key({ modkey }, "e", function()
+		awful.spawn("rofi -show emoji -theme miat") end,
+		{description = "rofi emoji", group = "launcher"}),
+	awful.key({ modkey }, "c", function()
+		awful.spawn("rofi -show calc -modi calc -no-show-match -no-sort -theme miat") end,
+		{description = "rofi calc", group = "launcher"}),
 
     awful.key({ modkey }, "x",
               function ()
@@ -388,6 +395,14 @@ globalkeys = gears.table.join(
 	awful.key({ modkey }, "b", function()
 		awful.util.spawn(browser) end,
 		{description = "launch firefox", group = "launcher"}),
+
+	-- Screenshots
+	awful.key({ modkey }, "Print", function()
+		awful.util.spawn("flameshot full -c") end,
+		{description = "capture full screen", group = "screen"}),
+	awful.key({ modkey, "Shift" }, "Print", function()
+		awful.util.spawn("flameshot gui") end,
+		{description = "capture selected area", group = "screen"}),
 
 	-- Multimedia
 	awful.key({ }, "XF86AudioRaiseVolume", function()
