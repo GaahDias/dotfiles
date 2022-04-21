@@ -1,0 +1,10 @@
+configuration {
+	icon-theme: "Papirus";
+	display-drun: "Apps:";
+	display-emoji: "Emojos:";
+	display-calc: "";
+	drun-display-format: "{icon} {name}";
+	modi: "window,drun,emoji,calc";
+}
+
+@theme "~/.config/rofi/themes/miat.rasi"
