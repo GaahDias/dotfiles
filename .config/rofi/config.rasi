@@ -4,7 +4,7 @@ configuration {
 	display-emoji: "Emojos:";
 	display-calc: "";
 	drun-display-format: "{icon} {name}";
-	modi: "window,drun,emoji,calc";
+	modi: "window,drun,emoji,calc,power-menu:rofi-power-menu";
 }
 
 @theme "~/.config/rofi/themes/miat.rasi"

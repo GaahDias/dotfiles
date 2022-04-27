@@ -22,6 +22,8 @@ local cpu_widget = require("config.widgets.cpu")
 local ram_widget = require("config.widgets.ram")
 -- Storage widget
 local storage_widget = require("config.widgets.storage")
+-- Clock widget
+local clock_widget = require("config.widgets.clock")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -271,7 +273,7 @@ awful.screen.connect_for_each_screen(function(s)
 			}
 		},
 		{
-			mytextclock,
+			clock_widget,
         	valign = "center",
         	halign = "center",
         	layout = wibox.container.place
@@ -391,6 +393,9 @@ globalkeys = gears.table.join(
 	awful.key({ modkey }, "c", function()
 		awful.spawn("rofi -show calc -modi calc -no-show-match -no-sort -theme miat") end,
 		{description = "rofi calc", group = "launcher"}),
+	awful.key({ modkey }, "p", function()
+		awful.spawn("rofi -show power-menu -theme miat") end,
+		{description = "rofi power off", group = "launcher"}),
 
     awful.key({ modkey }, "x",
               function ()
@@ -402,9 +407,6 @@ globalkeys = gears.table.join(
                   }
               end,
               {description = "lua execute prompt", group = "awesome"}),
-    -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"}),
 
 	-- Apps 
 	awful.key({ modkey }, "b", function()
