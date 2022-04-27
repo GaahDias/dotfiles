@@ -396,7 +396,7 @@ globalkeys = gears.table.join(
 		awful.spawn("rofi -show calc -modi calc -no-show-match -no-sort -theme miat") end,
 		{description = "rofi calc", group = "launcher"}),
 	awful.key({ modkey }, "p", function()
-		awful.spawn("rofi -show power-menu -theme miat") end,
+		awful.spawn("rofi -show power-menu -modi power-menu:rofi-power-menu -theme miat") end,
 		{description = "rofi power off", group = "launcher"}),
 
     awful.key({ modkey }, "x",
