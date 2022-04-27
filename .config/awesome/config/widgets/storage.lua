@@ -6,8 +6,9 @@ beautiful.init("~/.config/awesome/themes/miat/theme.lua")
 
 local cmd_size = [[df -h | awk '/^\/dev\/[A-Za-z]{3}[0-9]/ { print $2 }' | sed 's/G//']]
 local cmd_used = [[df -h | awk '/^\/dev\/[A-Za-z]{3}[0-9]/ { print $3 }' | sed 's/G//']]
+local cmd_name = [[df -h | awk '/^\/dev\/[A-Za-z]{3}[0-9]/ { print $1 }']]
 
-function os_output(cmd)
+local function os_output(cmd)
 	local reader = io.popen(cmd, 'r')
 	local output = reader:read()
 
@@ -16,12 +17,19 @@ function os_output(cmd)
 	return output
 end
 
-function split_str(input_str, sep)
+local function split_str(input_str, sep)
 	local t = {}
 	for s in string.gmatch(input_str, "([^"..sep.."]+)") do
 		table.insert(t, s)
 	end
 	return t
+end
+
+local function get_disk_type()
+	local disk_name = os_output(cmd_name)
+	local disk_type = os_output("cat /sys/block/" .. split_str(disk_name, "/")[2] .. "/queue/rotational")
+
+	return disk_type and "HDD" or "SSD"
 end
 
 local storage_widget = wibox.widget{
@@ -63,7 +71,7 @@ local storage_tt = awful.tooltip{
 awful.widget.watch("sh -c \"" .. cmd_size .. " ; " .. cmd_used .. "\"", 5, function(widget, stdout)
 	local split_stdout = split_str(stdout, "\n")
 	storage_widget:get_children_by_id("text")[1].text = "  " .. split_stdout[2] .. "/" .. split_stdout[1] .. "G"
-	storage_tt.text = split_stdout[2] .. "G / " .. split_stdout[1] .. "G"
+	storage_tt.text = get_disk_type() .. ": " .. split_stdout[2] .. "/" .. split_stdout[1] .. "G"
 end, storage_widget)
 
 

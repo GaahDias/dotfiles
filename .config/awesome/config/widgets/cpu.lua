@@ -7,7 +7,7 @@ beautiful.init("~/.config/awesome/themes/miat/theme.lua")
 local cmd_usg = "top -b -n 1 | awk '/Cpu/ { print $2 }'"
 local cmd_temp = "sensors | awk '/Package id 0:/ { print $4 }' | sed 's/+//'"
 
-function split_str(input_str, sep)
+local function split_str(input_str, sep)
 	local t = {}
 	for s in string.gmatch(input_str, "([^"..sep.."]+)") do
 		table.insert(t, s)

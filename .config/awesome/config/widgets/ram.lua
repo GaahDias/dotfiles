@@ -8,7 +8,7 @@ local cmd_ram_total = "top -b -n 1 | awk '/MiB Mem/ { print $4 }'"
 local cmd_ram_used = "top -b -n 1 | awk '/MiB Mem/ { print $8 }'"
 local cmd_swap_used = "top -b -n 1 | awk '/MiB Swap/ { print $7 }'"
 
-function os_output(cmd)
+local function os_output(cmd)
 	local reader = io.popen(cmd, 'r')
 	local output = reader:read()
 
@@ -17,7 +17,7 @@ function os_output(cmd)
 	return output
 end
 
-function split_str(input_str, sep)
+local function split_str(input_str, sep)
 	local t = {}
 	for s in string.gmatch(input_str, "([^"..sep.."]+)") do
 		table.insert(t, s)
