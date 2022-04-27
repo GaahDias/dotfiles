@@ -4,10 +4,10 @@
  */
 
 * {
-    black-color:      		  #1B1919;
-    dark-urgent-color:        #423EE7;
-    light-urgent-color:       #6B7FE5;
-    main-color:      		  #226DE0;
+    black-color:      		  #1A1919;
+    dark-urgent-color:        #226DE0;
+    light-urgent-color:       #85A4F3;
+    main-color:      		  #6344DF;
     white-color:      		  #E9E5E5;
 
 	full-transparent:		  rgba(0, 0, 0, 0);
@@ -57,7 +57,7 @@ listview {
     padding: 8px;
     border-radius: 0px 0px 15px 15px;
     border: 0px 2px 2px 2px;
-    lines: 10;
+    lines: 8;
 }
 element {
     padding: 3px;
