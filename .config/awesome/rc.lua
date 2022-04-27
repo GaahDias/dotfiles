@@ -24,6 +24,8 @@ local ram_widget = require("config.widgets.ram")
 local storage_widget = require("config.widgets.storage")
 -- Clock widget
 local clock_widget = require("config.widgets.clock")
+-- Power widget 
+local power_widget = require("config.widgets.power")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -268,8 +270,8 @@ awful.screen.connect_for_each_screen(function(s)
 				ram_widget,
 				cpu_widget,
 				volume_widget,
-				--mytextclock,
 				systray_launcher_widget,
+				power_widget,
 			}
 		},
 		{
