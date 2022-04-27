@@ -26,9 +26,7 @@ local function split_str(input_str, sep)
 end
 
 local function get_disk_type()
-	local disk_name = os_output(cmd_name)
-	local disk_type = os_output("cat /sys/block/" .. split_str(disk_name, "/")[2] .. "/queue/rotational")
-
+	local disk_type = tonumber(os_output("cat /sys/block/" .. split_str(os_output(cmd_name), "/")[2] .. "/queue/rotational"))
 	return disk_type and "HDD" or "SSD"
 end
 

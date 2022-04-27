@@ -23,8 +23,8 @@ local clock_widget = wibox.widget{
 			shape = function (cr, width, height)
 							shape.rounded_rect(cr, width, height, 10) end,
 			shape_border_width = 2,
-			fg = beautiful.light_primary_color,
-			shape_border_color = beautiful.dark_primary_color,
+			fg = beautiful.light_secundary_color,
+			shape_border_color = beautiful.dark_secundary_color,
 			bg = beautiful.primary_bg_color .. "40",
 			widget = wibox.container.background,
 		},
