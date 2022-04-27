@@ -15,8 +15,8 @@ local theme = {}
 -- Defining theme main colors
 theme.dark_primary_color      = "#226DE0"
 theme.light_primary_color     = "#85A4F3"
-theme.dark_secundary_color    = "#6344DF"
-theme.light_secundary_color   = "#8E7EF0"
+theme.dark_secundary_color    = "#5E3AEB"
+theme.light_secundary_color   = "#9F91F6"
 
 theme.primary_bg_color        = "#1A1919"
 theme.secundary_bg_color      = "#232222"
