@@ -27,40 +27,33 @@ end
 
 local ram_widget = wibox.widget{
 	{
-		id = "text_container",
 		{
-			id = "text",
-			font = beautiful.font_type .. "8",
-			text = "RAM:",
-			widget = wibox.widget.textbox,
-		},
-		right = 7,
-		left = 10,
-		layout = wibox.container.margin,
-	},
-	{
-		{
-			id = "bar_container",
 			{
-				id = "bar",
-				opacity = 0.85,
-				forced_height = 15,
-				forced_width  = 10,
-				max_value = tonumber(os_output(cmd_ram_total)),
-				paddings = 1,
-				border_width = 2,
-				shape = function (cr, width, height)
-					shape.rounded_rect(cr, width, height, 3.5) end,
-				widget = wibox.widget.progressbar,
-
+				{
+					id = "text",
+					font = beautiful.font_type .. "10",
+					text = " 0/0",
+					widget = wibox.widget.textbox,
+				},
+				right = 11,
+				left = 11,
+				layout = wibox.container.margin,
 			},
-			layout        = wibox.container.rotate,
-    		direction     = 'east',
+			shape = function (cr, width, height)
+							shape.rounded_rect(cr, width, height, 10) end,
+			shape_border_width = 2,
+			fg = beautiful.light_primary_color,
+			shape_border_color = beautiful.dark_primary_color,
+			bg = beautiful.primary_bg_color .. "40",
+			widget = wibox.container.background,
 		},
-		margins = 2.5,
+		top = 3,
+		bottom = 3,
+		right = 4,
+		left = 4,
 		layout = wibox.container.margin,
 	},
-	layout = wibox.layout.align.horizontal,
+	layout = wibox.layout.align.horizontal
 }
 
 local ram_tt = awful.tooltip{
@@ -68,9 +61,11 @@ local ram_tt = awful.tooltip{
 	mode = "outside",
 }
 
+local total_ram = string.format("%.1f", tostring(tonumber(os_output(cmd_ram_total)) / 1000))
+
 awful.widget.watch("sh -c \"" .. cmd_ram_used .. " ; " .. cmd_swap_used .. "\"", 3, function(widget, stdout)
 	local split_stdout = split_str(stdout, "\n")
-	ram_widget:get_children_by_id("bar")[1].value = tonumber(split_stdout[1])
+	ram_widget:get_children_by_id("text")[1].text = "  " .. string.format("%.1f", tostring((tonumber(split_stdout[1]) / 1000))) .. "/" .. total_ram .. "G"
 	ram_tt.text = "RAM: " .. split_stdout[1] .. "\nSwap: " .. split_stdout[2]
 end, ram_widget)
 

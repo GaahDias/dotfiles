@@ -6,7 +6,7 @@ local defaultApps = {
         browser = "firefox",
         music = "spotify",
         markdown = "marktext",
-        files = "dolphin" 
+        files = "nemo",
 }
 
 return defaultApps

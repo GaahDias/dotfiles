@@ -17,36 +17,30 @@ end
 
 local cpu_widget = wibox.widget{
 	{
-		id = "text_container",
 		{
-			id = "text",
-			font = beautiful.font_type .. "8",
-			text = "CPU:",
-			widget = wibox.widget.textbox,
-		},
-		right = 7,
-		left = 10,
-		layout = wibox.container.margin,
-	},
-	{
-		{
-			id = "bar_container",
 			{
-				id = "bar",
-				opacity = 0.85,
-				forced_height = 15,
- 				forced_width  = 10,
-				max_value = 100,
-				paddings = 1,
-				border_width = 2,
-				shape = function (cr, width, height)
-					shape.rounded_rect(cr, width, height, 3.5) end,
-				widget = wibox.widget.progressbar,
+				{
+					id = "text",
+					font = beautiful.font_type .. "10",
+					text = " 0%",
+					widget = wibox.widget.textbox,
+				},
+				right = 11,
+				left = 11,
+				layout = wibox.container.margin,
 			},
-			layout        = wibox.container.rotate,
-    		direction     = 'east',
+			shape = function (cr, width, height)
+							shape.rounded_rect(cr, width, height, 10) end,
+			shape_border_width = 2,
+			fg = beautiful.light_primary_color,
+			shape_border_color = beautiful.dark_primary_color,
+			bg = beautiful.primary_bg_color .. "40",
+			widget = wibox.container.background,
 		},
-		margins = 2.5,
+		top = 3,
+		bottom = 3,
+		right = 4,
+		left = 4,
 		layout = wibox.container.margin,
 	},
 	layout = wibox.layout.align.horizontal
@@ -59,7 +53,7 @@ local cpu_tt = awful.tooltip{
 
 awful.widget.watch("sh -c \"" .. cmd_usg .. " ; " .. cmd_temp .. "\"", 1.5, function(widget, stdout)
 	local split_stdout = split_str(stdout, "\n")
-	cpu_widget:get_children_by_id("bar")[1].value = tonumber(split_stdout[1])
+	cpu_widget:get_children_by_id("text")[1].text = "  " .. split_str(split_stdout[1], ".")[1] .. "%"
 	cpu_tt.text = "Usg: " .. split_stdout[1] .. "%\nTemp: " .. split_stdout[2]
 end, cpu_widget)
 

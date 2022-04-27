@@ -20,6 +20,8 @@ local volume_widget = require('config.widgets.volume')
 local cpu_widget = require("config.widgets.cpu")
 -- RAM Widget
 local ram_widget = require("config.widgets.ram")
+-- Storage widget
+local storage_widget = require("config.widgets.storage")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -63,6 +65,7 @@ terminal = default_apps.terminal
 editor = os.getenv("EDITOR") or default_apps.editor
 editor_cmd = terminal .. " -e " .. editor
 browser = default_apps.browser
+file_manager = default_apps.files
 
 -- Default modkey.
 modkey = "Mod4"
@@ -220,12 +223,19 @@ awful.screen.connect_for_each_screen(function(s)
 		x = (s.mywibox.width - 90), y = (s.mywibox.height + 15), visible = false })
 
 	systray_launcher_widget = wibox.widget{
-						font = beautiful.font_type .. 11.5,
-						text = "V",
-						align = "center",
-						valign = "center",
-						buttons = awful.button({ }, 1, function() s.systraywibox.visible = not s.systraywibox.visible end),
-						widget = wibox.widget.textbox }
+		{
+			font = beautiful.font_type .. "27",
+			markup = '<span foreground="' .. beautiful.light_primary_color .. '"></span>',
+			align = "center",
+			valign = "center",
+			fg = beautiful.primary_dark_color,
+			buttons = awful.button({ }, 1, function() s.systraywibox.visible = not s.systraywibox.visible end),
+			widget = wibox.widget.textbox 
+		},
+		right = 7,
+		left = 5,
+		layout = wibox.container.margin,
+	}
 
 	systray_widget = wibox.widget{
 		{
@@ -240,26 +250,32 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Add widgets to the wibox
     s.mywibox:setup {
-        layout = wibox.layout.align.horizontal,
-        { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-            mylauncher,
-			margin_widget,
-            s.mytaglist,
-        },
-        nil, -- Middle widget
-        { -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
-			ram_widget,
-			cpu_widget,
-			margin_widget,
-			volume_widget,
-			margin_widget,
-            mytextclock,
-			margin_widget,
-			systray_launcher_widget,
-			margin_widget,
-        }
+		layout = wibox.layout.stack,
+		{
+        	layout = wibox.layout.align.horizontal,
+			{ -- Left widgets
+				layout = wibox.layout.fixed.horizontal,
+				mylauncher,
+				margin_widget,
+				s.mytaglist,
+			},
+			nil,
+			{ -- Right widgets
+				layout = wibox.layout.fixed.horizontal,
+				storage_widget,
+				ram_widget,
+				cpu_widget,
+				volume_widget,
+				--mytextclock,
+				systray_launcher_widget,
+			}
+		},
+		{
+			mytextclock,
+        	valign = "center",
+        	halign = "center",
+        	layout = wibox.container.place
+		}
     }
 
 	s.systraywibox:setup {
@@ -394,6 +410,9 @@ globalkeys = gears.table.join(
 	awful.key({ modkey }, "b", function()
 		awful.util.spawn(browser) end,
 		{description = "launch firefox", group = "launcher"}),
+	awful.key({ modkey }, "f", function()
+		awful.util.spawn(file_manager) end,
+		{description = "launch nemo", group = "launcher"}),
 
 	-- Screenshots
 	awful.key({ modkey }, "Print", function()

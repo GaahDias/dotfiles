@@ -14,16 +14,17 @@ local theme = {}
 
 -- Defining theme main colors
 theme.dark_primary_color      = "#226DE0"
-theme.light_primary_color     = "#6DA3E7"
-theme.dark_secundary_color    = "#423EE7"
-theme.light_secundary_color   = "#6B7FE5"
+theme.light_primary_color     = "#85A4F3"
+theme.dark_secundary_color    = "#863FE1"
+theme.light_secundary_color   = "#A386F4"
+
 theme.primary_bg_color        = "#1A1919"
 theme.secundary_bg_color      = "#232222"
 theme.primary_fg_color        = "#C1BDBD"
 theme.secundary_fg_color      = "#E9E5E5"
 
 -- Font
-theme.font_type  = "Sans "
+theme.font_type  = "JetBrainsMono Nerd Font "
 theme.font       = theme.font_type .. tostring(dpi(9))
 
 -- Background

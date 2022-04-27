@@ -28,7 +28,8 @@ local widget_types = {
     icon = require("config.widgets.volume-widget.widgets.icon-widget"),
     arc = require("config.widgets.volume-widget.widgets.arc-widget"),
     horizontal_bar = require("config.widgets.volume-widget.widgets.horizontal-bar-widget"),
-    vertical_bar = require("config.widgets.volume-widget.widgets.vertical-bar-widget")
+    vertical_bar = require("config.widgets.volume-widget.widgets.vertical-bar-widget"),
+	my_custom_widget = require("config.widgets.volume-widget.widgets.my-custom-widget")
 }
 local volume = {}
 
