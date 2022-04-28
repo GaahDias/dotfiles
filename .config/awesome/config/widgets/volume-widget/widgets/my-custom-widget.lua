@@ -30,7 +30,7 @@ function widget.get_widget(widgets_args)
 				id = "container",
 				shape = function (cr, width, height)
 								shape.rounded_rect(cr, width, height, 10) end,
-				shape_border_width = 2,
+				shape_border_width = 1.75,
 				fg = beautiful.light_primary_color,
 				shape_border_color = beautiful.dark_primary_color,
 				bg = beautiful.primary_bg_color .. "40",
