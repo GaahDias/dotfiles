@@ -11,7 +11,7 @@ local clock_widget = wibox.widget{
 				{
 					id = "clock",
 					font = beautiful.font_type .. "10",
-    				format = '%a %b %d, %H:%M',
+    				format = '%a %d %b, %H:%M',
 					widget = wibox.widget.textclock,
 				},
 				right = 11,
@@ -24,7 +24,7 @@ local clock_widget = wibox.widget{
 							shape.rounded_rect(cr, width, height, 10) end,
 			shape_border_width = 2,
 			fg = beautiful.light_secundary_color,
-			shape_border_color = beautiful.dark_secundary_color,
+			shape_border_color = beautiful.dark_primary_color,
 			bg = beautiful.primary_bg_color .. "40",
 			widget = wibox.container.background,
 		},

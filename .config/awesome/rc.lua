@@ -24,8 +24,12 @@ local ram_widget = require("config.widgets.ram")
 local storage_widget = require("config.widgets.storage")
 -- Clock widget
 local clock_widget = require("config.widgets.clock")
--- Power widget 
+-- Power widget
 local power_widget = require("config.widgets.power")
+-- Launcher widget
+local launcher_widget = require("config.widgets.launcher")
+-- Systray widgets
+local systray_widget = require("config.widgets.systray")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -94,27 +98,6 @@ awful.layout.layouts = {
     -- awful.layout.suit.corner.se,
 }
 -- }}}
-
--- {{{ Menu
--- Create a launcher widget and a main menu
-myawesomemenu = {
-   { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-   { "manual", terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. awesome.conffile },
-   { "restart", awesome.restart },
-   { "quit", function() awesome.quit() end },
-}
-
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", terminal },
-									{ "open browser", browser }
-                                  }
-                        })
-
-mylauncher = awful.widget.launcher({ image = beautiful.arch_logo,
-									 halign = "left",
-                                     menu = mymainmenu })
-
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
@@ -123,9 +106,6 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
--- Create a textclock widget
-mytextclock = wibox.widget.textclock()
-
 -- Margin widget for spacing in the wibar
 margin_widget = wibox.container{
 	margins = 5,
@@ -219,38 +199,12 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create the wibar
-    s.mywibox = awful.wibar({ border_width = 6.5, height = dpi(40), position = "top", shape = 
-		function(cr, width, height) gears.shape.rounded_rect(cr, width, height, 24) end})
+    s.mywibox = awful.wibar({ border_width = 6.5, height = dpi(40), position = "top", shape =
+		function(cr, width, height) gears.shape.rounded_rect(cr, width, height, 25) end})
 
 	-- Create systray wibox
-	s.systraywibox = wibox({ border_width = 0, height = dpi(48), width = dpi(95), ontop = true,
-		x = (s.mywibox.width - 90), y = (s.mywibox.height + 15), visible = false })
-
-	systray_launcher_widget = wibox.widget{
-		{
-			font = beautiful.font_type .. "27",
-			markup = '<span foreground="' .. beautiful.light_primary_color .. '"></span>',
-			align = "center",
-			valign = "center",
-			fg = beautiful.primary_dark_color,
-			buttons = awful.button({ }, 1, function() s.systraywibox.visible = not s.systraywibox.visible end),
-			widget = wibox.widget.textbox 
-		},
-		right = 7,
-		left = 5,
-		layout = wibox.container.margin,
-	}
-
-	systray_widget = wibox.widget{
-		{
-			id = "systray",
-			opacity = 0.8,
-			widget = wibox.widget.systray
-		},
-		margins = 5,
-		layout = wibox.container.margin,
-	}
-	systray_widget.systray:set_horizontal(false)
+	s.systraywibox = wibox({ border_width = 0, height = dpi(48), width = dpi(95), ontop = true, visible = false })
+	s.systraywibox:connect_signal("mouse::leave", function() s.systraywibox.visible = false end)
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -259,8 +213,7 @@ awful.screen.connect_for_each_screen(function(s)
         	layout = wibox.layout.align.horizontal,
 			{ -- Left widgets
 				layout = wibox.layout.fixed.horizontal,
-				mylauncher,
-				margin_widget,
+				launcher_widget,
 				s.mytaglist,
 			},
 			nil,
@@ -270,7 +223,7 @@ awful.screen.connect_for_each_screen(function(s)
 				ram_widget,
 				cpu_widget,
 				volume_widget,
-				systray_launcher_widget,
+				systray_widget.get_launcher(s.systraywibox),
 				power_widget,
 			}
 		},
@@ -286,7 +239,7 @@ awful.screen.connect_for_each_screen(function(s)
 		layout = wibox.layout.flex.horizontal,
 		{
 			layout = wibox.layout.fixed.horizontal,
-			systray_widget,
+			systray_widget.get_systray_widget(),
 		},
 		{
 			layout = wibox.layout.fixed.horizontal,
@@ -297,17 +250,16 @@ end)
 -- }}}
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
+    --awful.button({ }, 4, awful.tag.viewnext),
+    --awful.button({ }, 5, awful.tag.viewprev)
 ))
 
 globalkeys = gears.table.join(
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
-    awful.key({ modkey, "Mod1"    }, "Left",   awful.tag.viewprev,
+    awful.key({ modkey, "Control"    }, "Left",   awful.tag.viewprev,
               {description = "view previous", group = "tag"}),
-    awful.key({ modkey, "Mod1"    }, "Right",  awful.tag.viewnext,
+    awful.key({ modkey, "Control"    }, "Right",  awful.tag.viewnext,
               {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
@@ -356,9 +308,9 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
 
-    awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
+    awful.key({ modkey, "Mod1"    }, "Right",     function () awful.tag.incmwfact( 0.05)          end,
               {description = "increase master width factor", group = "layout"}),
-    awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)          end,
+    awful.key({ modkey, "Mod1"    }, "Left",     function () awful.tag.incmwfact(-0.05)          end,
               {description = "decrease master width factor", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "Up",     function () awful.tag.incnmaster( 1, nil, true) end,
               {description = "increase the number of master clients", group = "layout"}),
