@@ -32,7 +32,7 @@ local ram_widget = wibox.widget{
 				{
 					id = "text",
 					font = beautiful.font_type .. "10",
-					text = " 0/0",
+					markup = '<span foreground="' .. beautiful.light_primary_color .. '"> </span> ' .. '0/0G',
 					widget = wibox.widget.textbox,
 				},
 				right = 11,
@@ -42,7 +42,7 @@ local ram_widget = wibox.widget{
 			shape = function (cr, width, height)
 							shape.rounded_rect(cr, width, height, 10) end,
 			shape_border_width = 2,
-			fg = beautiful.light_primary_color,
+			fg = beautiful.primary_fg_color,
 			shape_border_color = beautiful.dark_primary_color,
 			bg = beautiful.primary_bg_color .. "40",
 			widget = wibox.container.background,
@@ -65,7 +65,8 @@ local total_ram = string.format("%.1f", tostring(tonumber(os_output(cmd_ram_tota
 
 awful.widget.watch("sh -c \"" .. cmd_ram_used .. " ; " .. cmd_swap_used .. "\"", 3, function(widget, stdout)
 	local split_stdout = split_str(stdout, "\n")
-	ram_widget:get_children_by_id("text")[1].text = "  " .. string.format("%.1f", tostring((tonumber(split_stdout[1]) / 1000))) .. "/" .. total_ram .. "G"
+	ram_widget:get_children_by_id("text")[1].markup = '<span foreground="' .. beautiful.light_primary_color .. '"> </span> ' ..
+		string.format("%.1f", tostring((tonumber(split_stdout[1]) / 1000))) .. '/' .. total_ram .. 'G'
 	ram_tt.text = "RAM: " .. split_stdout[1] .. "\nSwap: " .. split_stdout[2]
 end, ram_widget)
 

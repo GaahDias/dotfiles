@@ -22,7 +22,7 @@ local cpu_widget = wibox.widget{
 				{
 					id = "text",
 					font = beautiful.font_type .. "10",
-					text = "﬙ 0%",
+					markup = '<span foreground="' .. beautiful.light_primary_color .. '">﬙ </span> 0%',
 					widget = wibox.widget.textbox,
 				},
 				right = 11,
@@ -32,7 +32,7 @@ local cpu_widget = wibox.widget{
 			shape = function (cr, width, height)
 							shape.rounded_rect(cr, width, height, 10) end,
 			shape_border_width = 2,
-			fg = beautiful.light_primary_color,
+			fg = beautiful.primary_fg_color,
 			shape_border_color = beautiful.dark_primary_color,
 			bg = beautiful.primary_bg_color .. "40",
 			widget = wibox.container.background,
@@ -53,7 +53,7 @@ local cpu_tt = awful.tooltip{
 
 awful.widget.watch("sh -c \"" .. cmd_usg .. " ; " .. cmd_temp .. "\"", 1.5, function(widget, stdout)
 	local split_stdout = split_str(stdout, "\n")
-	cpu_widget:get_children_by_id("text")[1].text = "  " .. split_str(split_stdout[1], ".")[1] .. "%"
+	cpu_widget:get_children_by_id("text")[1].markup = '<span foreground="' .. beautiful.light_primary_color .. '"> </span> ' .. split_str(split_stdout[1], ".")[1] .. '%'
 	cpu_tt.text = "Usg: " .. split_stdout[1] .. "%\nTemp: " .. split_stdout[2]
 end, cpu_widget)
 

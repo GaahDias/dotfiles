@@ -46,19 +46,19 @@ function widget.get_widget(widgets_args)
 
         set_volume_level = function(self, new_value)
             if self.is_muted then
-                self:get_children_by_id('text')[1].text =  "婢 Mu"
-				self:get_children_by_id('container')[1].fg = beautiful.light_secundary_color
+                self:get_children_by_id('text')[1].markup =  "婢 Mu"
+				self:get_children_by_id('container')[1].fg = beautiful.light_urgent_color
             else
                 local new_value_num = tonumber(new_value)
                 if (new_value_num >= 0 and new_value_num < 25) then
-                    self:get_children_by_id('text')[1].text = "奄" .. new_value
-					self:get_children_by_id('container')[1].fg = beautiful.light_primary_color
+                    self:get_children_by_id('text')[1].markup = '<span foreground="' .. beautiful.light_primary_color .. '">奄</span>' .. new_value
+					self:get_children_by_id('container')[1].fg = beautiful.primary_fg_color
                 elseif (new_value_num < 60) then
-                     self:get_children_by_id('text')[1].text = "奔" .. new_value
-					 self:get_children_by_id('container')[1].fg = beautiful.light_primary_color
+                     self:get_children_by_id('text')[1].markup = '<span foreground="' .. beautiful.light_primary_color .. '">奔</span>' .. new_value
+					 self:get_children_by_id('container')[1].fg = beautiful.primary_fg_color
                 else
-                   self:get_children_by_id('text')[1].text = "墳" .. new_value
-				   self:get_children_by_id('container')[1].fg = beautiful.light_primary_color
+                   self:get_children_by_id('text')[1].markup = '<span foreground="' .. beautiful.light_primary_color .. '">墳</span>' .. new_value
+				   self:get_children_by_id('container')[1].fg = beautiful.primary_fg_color
                 end
             end
         end,

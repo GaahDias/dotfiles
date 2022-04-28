@@ -17,21 +17,23 @@ theme.dark_primary_color      = "#286AE9"
 theme.light_primary_color     = "#85A4F3"
 theme.dark_secundary_color    = "#3037E8"
 theme.light_secundary_color   = "#8D9EF6"
+theme.dark_urgent_color       = "#F33E48"
+theme.light_urgent_color      = "#F97E93"
 
 theme.primary_bg_color        = "#1A1919"
 theme.secundary_bg_color      = "#232222"
-theme.primary_fg_color        = "#C1BDBD"
-theme.secundary_fg_color      = "#E9E5E5"
+theme.primary_fg_color        = "#CAC5C5"
+theme.secundary_fg_color      = "#E7E1E1"
 
 -- Font
 theme.font_type  = "JetBrainsMono Nerd Font "
 theme.font       = theme.font_type .. tostring(dpi(9))
 
 -- Background
-theme.bg_normal     = theme.secundary_bg_color .. "b3"
-theme.bg_focus      = theme.primary_bg_color .. "bf"
-theme.bg_urgent     = theme.dark_secundary_color .. "b3"
-theme.bg_minimize   = theme.secundary_bg_color .. "b3"
+theme.bg_normal     = theme.secundary_bg_color .. "bf"
+theme.bg_focus      = theme.primary_bg_color .. "c4"
+theme.bg_urgent     = theme.dark_secundary_color .. "bf"
+theme.bg_minimize   = theme.secundary_bg_color .. "bf"
 
 -- Foreground
 theme.fg_normal     = theme.primary_fg_color

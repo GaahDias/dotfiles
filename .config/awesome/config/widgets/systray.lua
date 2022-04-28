@@ -9,7 +9,7 @@ function systray.get_launcher(systray_wibox)
 	local systray_launcher_widget = wibox.widget{
 			{
 				font = beautiful.font_type .. "26",
-				markup = '<span foreground="' .. beautiful.light_secundary_color .. '"></span>',
+				markup = '<span foreground="' .. beautiful.primary_fg_color .. '"></span>',
 				align = "center",
 				valign = "center",
 				fg = beautiful.primary_dark_color,
@@ -22,6 +22,7 @@ function systray.get_launcher(systray_wibox)
 			},
 			right = 7,
 			left = 5,
+			top = 1,
 			layout = wibox.container.margin,
 		}
 	return systray_launcher_widget
