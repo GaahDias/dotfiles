@@ -5,9 +5,9 @@
 
 * {
     black-color:      		  #1A1919;
-    dark-urgent-color:        #226DE0;
+    dark-urgent-color:        #3037E8;
     light-urgent-color:       #85A4F3;
-    main-color:      		  #3037E8;
+    main-color:      		  #286AE9;
     white-color:      		  #E9E5E5;
 
 	full-transparent:		  rgba(0, 0, 0, 0);
