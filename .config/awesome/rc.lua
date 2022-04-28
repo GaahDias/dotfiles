@@ -69,31 +69,52 @@ end
 beautiful.init("~/.config/awesome/themes/miat/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = default_apps.terminal
-editor = os.getenv("EDITOR") or default_apps.editor
-editor_cmd = terminal .. " -e " .. editor
-browser = default_apps.browser
-file_manager = default_apps.files
+local terminal = default_apps.terminal
+local editor = os.getenv("EDITOR") or default_apps.editor
+local editor_cmd = terminal .. " -e " .. editor
+local browser = default_apps.browser
+local file_manager = default_apps.files
 
 -- Default modkey.
-modkey = "Mod4"
+local modkey = "Mod4"
+
+-- Table with layout icons and names
+local layout_icons = {
+	tile = beautiful.layout_tile,
+	tileleft = beautiful.layout_tileleft,
+	tilebottom = beautiful.layout_tilebottom,
+	tiletop = beautiful.layout_tiletop,
+	floating = beautiful.layout_floating,
+	fairv = beautiful.layout_fairv,
+	fairh = beautiful.layout_fairh,
+}
+
+local layout_names = {
+	tile = "Tile Right",
+	tileleft = "Tile Left",
+	tilebottom = "Tile Bottom",
+	tiletop = "Tile Top",
+	floating = "Float",
+	fairv = "Fair Vertical",
+	fairh = "Fair Horizontal",
+}
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
+    --awful.layout.suit.tile.left,
+    --awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
 	awful.layout.suit.floating,
-    -- awful.layout.suit.fair,
-    -- awful.layout.suit.fair.horizontal,
+    awful.layout.suit.fair,
+    awful.layout.suit.fair.horizontal,
     -- awful.layout.suit.spiral,
     -- awful.layout.suit.spiral.dwindle,
     -- awful.layout.suit.max,
     -- awful.layout.suit.max.fullscreen,
     -- awful.layout.suit.magnifier,
     -- awful.layout.suit.corner.nw,
-    -- -- awful.layout.suit.corner.ne,
+    -- awful.layout.suit.corner.ne,
     -- awful.layout.suit.corner.sw,
     -- awful.layout.suit.corner.se,
 }
@@ -102,16 +123,7 @@ awful.layout.layouts = {
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
--- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout()
-
 -- {{{ Wibar
--- Margin widget for spacing in the wibar
-margin_widget = wibox.container{
-	margins = 5,
-	widget = wibox.container.margin,
-}
-
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
@@ -130,28 +142,6 @@ local taglist_buttons = gears.table.join(
                     awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
                 )
 
-local tasklist_buttons = gears.table.join(
-                     awful.button({ }, 1, function (c)
-                                              if c == client.focus then
-                                                  c.minimized = true
-                                              else
-                                                  c:emit_signal(
-                                                      "request::activate",
-                                                      "tasklist",
-                                                      {raise = true}
-                                                  )
-                                              end
-                                          end),
-                     awful.button({ }, 3, function()
-                                              awful.menu.client_list({ theme = { width = 250 } })
-                                          end),
-                     awful.button({ }, 4, function ()
-                                              awful.client.focus.byidx(1)
-                                          end),
-                     awful.button({ }, 5, function ()
-                                              awful.client.focus.byidx(-1)
-                                          end))
-
 local function set_wallpaper(s)
     -- Wallpaper
     if beautiful.wallpaper then
@@ -169,7 +159,7 @@ screen.connect_signal("property::geometry", set_wallpaper)
 
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
-    -- set_wallpaper(s)
+    set_wallpaper(s)
 	
     -- Each screen has its own tag table.
     awful.tag({ "main", "www", "code", "apps" }, s, awful.layout.layouts[1])
@@ -190,16 +180,8 @@ awful.screen.connect_for_each_screen(function(s)
         filter  = awful.widget.taglist.filter.all,
         buttons = taglist_buttons
     }
-	
-    -- Create a tasklist widget
-    s.mytasklist = awful.widget.tasklist {
-        screen  = s,
-        filter  = awful.widget.tasklist.filter.currenttags,
-        buttons = tasklist_buttons
-    }
-
     -- Create the wibar
-    s.mywibox = awful.wibar({ border_width = 6.5, height = dpi(40), position = "top", shape =
+    s.mywibox = awful.wibar({ border_width = 6, height = dpi(38), position = "top", shape =
 		function(cr, width, height) gears.shape.rounded_rect(cr, width, height, 25) end})
 
 	-- Create systray wibox
@@ -320,9 +302,19 @@ globalkeys = gears.table.join(
               {description = "increase the number of columns", group = "layout"}),
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1, nil, true)    end,
               {description = "decrease the number of columns", group = "layout"}),
-    awful.key({ modkey,           }, "space", function () awful.layout.inc( 1)                end,
+    awful.key({ modkey,           }, "space", function () 
+												awful.layout.inc( 1)
+												naughty.notify({
+													icon = layout_icons[awful.layout.getname()],
+													title = layout_names[awful.layout.getname()],
+													text="Layout changed"}) end,
               {description = "select next", group = "layout"}),
-    awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                end,
+    awful.key({ modkey, "Shift"   }, "space", function ()
+												awful.layout.inc(-1)
+												naughty.notify({
+													icon = layout_icons[awful.layout.getname()],
+													title = layout_names[awful.layout.getname()],
+													text="Layout changed"}) end,
               {description = "select previous", group = "layout"}),
 
     awful.key({ modkey, "Control" }, "n",
@@ -399,12 +391,6 @@ globalkeys = gears.table.join(
 )
 
 clientkeys = gears.table.join(
-    awful.key({ modkey,           }, "f",
-        function (c)
-            c.fullscreen = not c.fullscreen
-            c:raise()
-        end,
-        {description = "toggle fullscreen", group = "client"}),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
@@ -442,7 +428,7 @@ clientkeys = gears.table.join(
         {description = "(un)maximize horizontally", group = "client"})
 )
 
-for i = 1, 9 do
+for i = 1, 4 do
     globalkeys = gears.table.join(globalkeys,
         -- View tag only.
         awful.key({ modkey }, "#" .. i + 9,
