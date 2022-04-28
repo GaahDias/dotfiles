@@ -1,13 +1,13 @@
 ----------------------------------------
--- MIAT (My Incredible Awesome Theme) --
+-- MIAT (My Incredibly Awesome Theme) --
 --            by: Gaah                --
 ----------------------------------------
 
 local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
+local shape = require("gears.shape")
 local dpi = xresources.apply_dpi
 
-local gfs = require("gears.filesystem")
 local themes_path = "~/.config/awesome/themes/"
 
 local theme = {}
@@ -15,8 +15,8 @@ local theme = {}
 -- Defining theme main colors
 theme.dark_primary_color      = "#286AE9"
 theme.light_primary_color     = "#85A4F3"
-theme.dark_secundary_color    = "#3037E8"
-theme.light_secundary_color   = "#8D9EF6"
+theme.dark_secundary_color    = "#5533E0"
+theme.light_secundary_color   = "#958DF6"
 theme.dark_urgent_color       = "#F33E48"
 theme.light_urgent_color      = "#F97E93"
 
@@ -26,8 +26,9 @@ theme.primary_fg_color        = "#CAC5C5"
 theme.secundary_fg_color      = "#E7E1E1"
 
 -- Font
-theme.font_type  = "JetBrainsMono Nerd Font "
-theme.font       = theme.font_type .. tostring(dpi(9))
+theme.font_type         = "JetBrainsMono Nerd Font "
+theme.other_font_type   = "UbuntuMono Nerd Font "
+theme.font              = theme.font_type .. tostring(dpi(9))
 
 -- Background
 theme.bg_normal     = theme.secundary_bg_color .. "bf"
@@ -42,7 +43,7 @@ theme.fg_urgent     = theme.secundary_fg_color
 theme.fg_minimize   = theme.secundary_fg_color
 
 -- Border and gap
-theme.useless_gap   = dpi(7.5)
+theme.useless_gap   = dpi(6)
 theme.border_width  = dpi(3)
 theme.border_normal = theme.light_primary_color
 theme.border_focus  = theme.dark_primary_color
@@ -60,12 +61,15 @@ theme.systray_icon_spacing  = dpi(5)
 theme.systray_max_rows      = 2
 
 -- Notification
-theme.notification_font    = theme.font_type .. tostring(dpi(8))
-theme.notification_bg      = theme.secundary_bg_color .. "bf"
-theme.notification_fg      = theme.secundary_fg_color
-theme.notification_width   = dpi(380)
-theme.notification_height  = dpi(75)
-theme.notification_margin  = dpi(10)
+theme.notification_icon_size        = dpi(60)
+theme.notification_font             = theme.other_font_type .. "10"
+theme.notification_bg               = theme.secundary_bg_color .. "bf"
+theme.notification_fg               = theme.primary_fg_color
+theme.notification_shape            = function(cr, width, height)
+                                    shape.rounded_rect(cr, width, height, 10) end
+theme.notification_width            = dpi(350)
+theme.notification_height           = dpi(70)
+theme.notification_margin           = dpi(8)
 
 -- Progressbar
 theme.progressbar_bg            = theme.secundary_bg_color .. "b3"
@@ -73,42 +77,11 @@ theme.progressbar_fg            = theme.light_secundary_color .. "e6"
 theme.progressbar_border_color  = theme.dark_primary_color
 theme.progressbar_border_width  = dpi(10)
 
--- There are other variable sets
--- overriding the miat one when
--- defined, the sets are:
--- taglist_[bg|fg]_[focus|urgent|occupied|empty|volatile]
--- tasklist_[bg|fg]_[focus|urgent]
--- titlebar_[bg|fg]_[normal|focus]
--- tooltip_[font|opacity|fg_color|bg_color|border_width|border_color]
--- mouse_finder_[color|timeout|animate_timeout|radius|factor]
--- prompt_[fg|bg|fg_cursor|bg_cursor|font]
--- hotkeys_[bg|fg|border_width|border_color|shape|opacity|modifiers_fg|label_bg|label_fg|group_margin|font|description_font]
--- Example:
---theme.taglist_bg_focus = "#ff0000"
+-- Default wallpaper
+theme.wallpaper = themes_path.."miat/astronaut.jpg"
 
--- Generate taglist squares:
-local taglist_square_size = dpi(4)
-theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
-    taglist_square_size, theme.fg_normal
-)
-theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
-    taglist_square_size, theme.fg_normal
-)
-
--- Variables set for theming notifications:
--- Variables set for theming the menu:
--- menu_[bg|fg]_[normal|focus]
--- menu_[border_color|border_width]
-theme.menu_submenu_icon = themes_path.."miat/submenu.png"
-theme.menu_height = dpi(15)
-theme.menu_width  = dpi(100)
-
--- You can add as many variables as
--- you wish and access them by using
--- beautiful.variable in your rc.lua
---theme.bg_widget = "#cc0000"
-
-theme.wallpaper = themes_path.."miat/background.png"
+-- Icon theme
+theme.icon_theme = "~/.icons/Papirus"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = themes_path.."miat/layouts/fairhw.png"
@@ -128,17 +101,4 @@ theme.layout_cornerne = themes_path.."miat/layouts/cornernew.png"
 theme.layout_cornersw = themes_path.."miat/layouts/cornersww.png"
 theme.layout_cornerse = themes_path.."miat/layouts/cornersew.png"
 
--- Generate Awesome icon:
-theme.awesome_icon = theme_assets.awesome_icon(
-    theme.menu_height, theme.bg_focus, theme.fg_focus
-)
-
-theme.arch_logo = themes_path .. "miat/arch-linux-logo.png"
-
--- Define the icon theme for application icons. If not set then the icons
--- from /usr/share/icons and /usr/share/icons/hicolor will be used.
-theme.icon_theme = nil
-
 return theme
-
--- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
