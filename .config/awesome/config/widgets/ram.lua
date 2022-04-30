@@ -2,28 +2,12 @@ local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local shape = require("gears.shape")
+local utils = require("config.util.utils")
 beautiful.init("~/.config/awesome/themes/miat/theme.lua")
 
 local cmd_ram_total = "top -b -n 1 | awk '/MiB Mem/ { print $4 }'"
 local cmd_ram_used = "top -b -n 1 | awk '/MiB Mem/ { print $8 }'"
 local cmd_swap_used = "top -b -n 1 | awk '/MiB Swap/ { print $7 }'"
-
-local function os_output(cmd)
-	local reader = io.popen(cmd, 'r')
-	local output = reader:read()
-
-	reader:close()
-
-	return output
-end
-
-local function split_str(input_str, sep)
-	local t = {}
-	for s in string.gmatch(input_str, "([^"..sep.."]+)") do
-		table.insert(t, s)
-	end
-	return t
-end
 
 local ram_widget = wibox.widget{
 	{
@@ -61,10 +45,10 @@ local ram_tt = awful.tooltip{
 	mode = "outside",
 }
 
-local total_ram = string.format("%.1f", tostring(tonumber(os_output(cmd_ram_total)) / 1000))
+local total_ram = string.format("%.1f", tostring(tonumber(utils.os_output(cmd_ram_total)) / 1000))
 
 awful.widget.watch("sh -c \"" .. cmd_ram_used .. " ; " .. cmd_swap_used .. "\"", 3, function(widget, stdout)
-	local split_stdout = split_str(stdout, "\n")
+	local split_stdout = utils.split_str(stdout, "\n")
 	ram_widget:get_children_by_id("text")[1].markup = '<span foreground="' .. beautiful.light_primary_color .. '"> </span> ' ..
 		string.format("%.1f", tostring((tonumber(split_stdout[1]) / 1000))) .. '/' .. total_ram .. 'G'
 	ram_tt.text = "RAM: " .. split_stdout[1] .. "\nSwap: " .. split_stdout[2]

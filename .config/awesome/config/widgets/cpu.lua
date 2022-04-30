@@ -2,18 +2,11 @@ local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local shape = require("gears.shape")
+local utils = require("config.util.utils")
 beautiful.init("~/.config/awesome/themes/miat/theme.lua")
 
 local cmd_usg = "top -b -n 1 | awk '/Cpu/ { print $2 }'"
 local cmd_temp = "sensors | awk '/Package id 0:/ { print $4 }' | sed 's/+//'"
-
-local function split_str(input_str, sep)
-	local t = {}
-	for s in string.gmatch(input_str, "([^"..sep.."]+)") do
-		table.insert(t, s)
-	end
-	return t
-end
 
 local cpu_widget = wibox.widget{
 	{
@@ -52,8 +45,8 @@ local cpu_tt = awful.tooltip{
 }
 
 awful.widget.watch("sh -c \"" .. cmd_usg .. " ; " .. cmd_temp .. "\"", 1.5, function(widget, stdout)
-	local split_stdout = split_str(stdout, "\n")
-	cpu_widget:get_children_by_id("text")[1].markup = '<span foreground="' .. beautiful.light_primary_color .. '"> </span> ' .. split_str(split_stdout[1], ".")[1] .. '%'
+	local split_stdout = utils.split_str(stdout, "\n")
+	cpu_widget:get_children_by_id("text")[1].markup = '<span foreground="' .. beautiful.light_primary_color .. '"> </span> ' .. utils.split_str(split_stdout[1], ".")[1] .. '%'
 	cpu_tt.text = "Usg: " .. split_stdout[1] .. "%\nTemp: " .. split_stdout[2]
 end, cpu_widget)
 
