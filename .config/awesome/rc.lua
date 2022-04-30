@@ -38,8 +38,8 @@ require("awful.hotkeys_popup.keys")
 
 local dpi = require("beautiful.xresources").apply_dpi
 
-local default_apps = require('config.util.apps')
-
+local default_apps = require("config.util.apps")
+require("config.util.wallpaper")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -148,25 +148,10 @@ local taglist_buttons = gears.table.join(
                     awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
                 )
 
-local function set_wallpaper(s)
-    -- Wallpaper
-    if beautiful.wallpaper then
-        local wallpaper = beautiful.wallpaper
-        -- If wallpaper is a function, call it with the screen
-        if type(wallpaper) == "function" then
-            wallpaper = wallpaper(s)
-        end
-        gears.wallpaper.maximized(wallpaper, s, true)
-    end
-end
-
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
-screen.connect_signal("property::geometry", set_wallpaper)
+screen.connect_signal("property::geometry", next_random_wallpaper)
 
 awful.screen.connect_for_each_screen(function(s)
-    -- Wallpaper
-    set_wallpaper(s)
-
     -- Each screen has its own tag table.
     awful.tag({ "main", "www", "code", "apps", "games", "" }, s, awful.layout.layouts[1])
 
@@ -258,8 +243,6 @@ globalkeys = gears.table.join(
         end,
         {description = "focus previous by index", group = "client"}
     ),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
-              {description = "show main menu", group = "awesome"}),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "Right", function () awful.client.swap.byidx(  1)    end,
@@ -396,9 +379,12 @@ globalkeys = gears.table.join(
 		awful.util.spawn("playerctl previous") end),
 
 	-- Wallpaper
-	awful.key({ modkey, "Shift" }, "w", function() 
-		awful.spawn.with_shell("feh --bg-fill --randomize ~/.wallpapers/*") end,
-		{description = "change wallpaper", group = "screen"})
+	awful.key({ modkey }, "w", function()
+		next_random_wallpaper() end,
+		{description = "next wallpaper", group = "screen"}),
+	awful.key({ modkey, "Shift" }, "w", function()
+		prev_random_wallpaper() end,
+		{description = "previous wallpaper", group = "screen"})
 )
 
 clientkeys = gears.table.join(
@@ -632,7 +618,5 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- Autostart apps
 awful.spawn.with_shell("picom")
 
--- For random wallpaper
-awful.spawn.with_shell("feh --bg-fill --randomize ~/.wallpapers/*")
--- For specific wallpapers
--- awful.spawn.with_shell("feh --bg-scale ~/.wallpapers/wallhaven-md8g5y.png")
+-- Draw wallpaper
+next_random_wallpaper()
