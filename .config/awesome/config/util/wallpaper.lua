@@ -4,6 +4,10 @@ local PATH = "~/.wallpapers/"
 
 local wallpapers, i = utils.random_files(PATH), 1
 
+function init_wallpaper()
+	awful.spawn.with_shell("feh --bg-fill " .. PATH .. wallpapers[1])
+end
+
 function next_random_wallpaper()
 	i = i + 1
 	if i < #wallpapers then
@@ -16,7 +20,7 @@ end
 
 function prev_random_wallpaper()
 	i = i - 1
-	if i > 1 then
+	if i > 0 then
 		awful.spawn.with_shell("feh --bg-fill " .. PATH .. wallpapers[i])
 	else
 		i = #wallpapers

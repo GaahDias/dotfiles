@@ -28,7 +28,7 @@ theme.secundary_fg_color      = "#E7E1E1"
 theme.font_type         		= "JetBrainsMono Nerd Font "
 theme.calendar_font_type   		= "UbuntuMono Nerd Font "
 theme.notification_font_type 	= "Sans "
-theme.font              		= theme.font_type .. 9
+theme.font              		= theme.font_type .. "9"
 
 -- Background
 theme.bg_normal     = theme.secundary_bg_color .. "bf"
@@ -54,6 +54,8 @@ theme.hotkeys_bg            = theme.primary_bg_color .. "bf"
 theme.hotkeys_fg            = theme.primary_fg_color
 theme.hotkeys_modifiers_fg  = theme.primary_fg_color
 theme.hotkeys_border_width  = 0
+theme.hotkeys_font 			= theme.font_type .. "9.5"
+theme.hotkeys_group_margin  = dpi(18)
 
 -- Systray
 theme.bg_systray            = theme.secundary_bg_color .. "b3"
