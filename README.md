@@ -1,6 +1,6 @@
 # My dotfiles
 
-Just the config for my Linux environment. It's not that great yet, I'm still tweaking it.
+Just the config for my Linux environment.
 
 <br/>
 
@@ -10,11 +10,9 @@ Just the config for my Linux environment. It's not that great yet, I'm still twe
   
   * Arch Linux
 
-* DE & WM:
+* WM:
   
-  * KDE (Main session)
-  
-  * Awesomewm (For when I want to have some fun with wms)
+  * Awesomewm
 
 * Apps:
   
@@ -26,9 +24,13 @@ Just the config for my Linux environment. It's not that great yet, I'm still twe
   
   * Markdown editor - MarkText
   
-  * Audio/Video Player - VLC
+  * Audio/Video player - VLC
+
+  * Music player - Spotify
   
-  * File manager - Dolphin & Ranger
+  * File manager - Nemo & Ranger
+
+  * Application launcher - Rofi
   
   * Browser - Firefox
 
@@ -36,6 +38,8 @@ Just the config for my Linux environment. It's not that great yet, I'm still twe
 
 ### Screenshots
 
-![KDE desktop](screenshots/KDE_desktop.jpg)
+![Screenshot 1](screenshots/desktop-screenshot1.png)
 
-![Firefox](screenshots/firefox.jpg)
+![Screenshot 2](screenshots/desktop-screenshot2.png)
+
+![Screenshot 3](screenshots/desktop-screenshot3.png)
