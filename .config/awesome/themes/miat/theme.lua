@@ -3,7 +3,6 @@
 --            by: Gaah                --
 ----------------------------------------
 
-local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
 local shape = require("gears.shape")
 local dpi = xresources.apply_dpi
@@ -13,10 +12,10 @@ local themes_path = "~/.config/awesome/themes/"
 local theme = {}
 
 -- Defining theme main colors
-theme.dark_primary_color      = "#286AE9"
+theme.dark_primary_color      = "#285EE9"
 theme.light_primary_color     = "#85A4F3"
-theme.dark_secundary_color    = "#5533E0"
-theme.light_secundary_color   = "#958DF6"
+theme.dark_secundary_color    = "#4152E3"
+theme.light_secundary_color   = "#8D91F6"
 theme.dark_urgent_color       = "#F33E48"
 theme.light_urgent_color      = "#F97E93"
 
@@ -26,9 +25,10 @@ theme.primary_fg_color        = "#CAC5C5"
 theme.secundary_fg_color      = "#E7E1E1"
 
 -- Font
-theme.font_type         = "JetBrainsMono Nerd Font "
-theme.other_font_type   = "UbuntuMono Nerd Font "
-theme.font              = theme.font_type .. tostring(dpi(9))
+theme.font_type         		= "JetBrainsMono Nerd Font "
+theme.calendar_font_type   		= "UbuntuMono Nerd Font "
+theme.notification_font_type 	= "Sans "
+theme.font              		= theme.font_type .. 9
 
 -- Background
 theme.bg_normal     = theme.secundary_bg_color .. "bf"
@@ -43,7 +43,7 @@ theme.fg_urgent     = theme.secundary_fg_color
 theme.fg_minimize   = theme.secundary_fg_color
 
 -- Border and gap
-theme.useless_gap   = dpi(6)
+theme.useless_gap   = dpi(5)
 theme.border_width  = dpi(3)
 theme.border_normal = theme.light_primary_color
 theme.border_focus  = theme.dark_primary_color
@@ -53,7 +53,7 @@ theme.border_marked = theme.dark_secundary_color
 theme.hotkeys_bg            = theme.primary_bg_color .. "bf"
 theme.hotkeys_fg            = theme.primary_fg_color
 theme.hotkeys_modifiers_fg  = theme.primary_fg_color
-theme.hotkeys_border_color  = theme.dark_primary_color
+theme.hotkeys_border_width  = 0
 
 -- Systray
 theme.bg_systray            = theme.secundary_bg_color .. "b3"
@@ -62,13 +62,13 @@ theme.systray_max_rows      = 2
 
 -- Notification
 theme.notification_icon_size        = dpi(60)
-theme.notification_font             = theme.other_font_type .. "10"
+theme.notification_font             = theme.notification_font_type .. "8.5"
 theme.notification_bg               = theme.secundary_bg_color .. "bf"
 theme.notification_fg               = theme.primary_fg_color
 theme.notification_shape            = function(cr, width, height)
                                     shape.rounded_rect(cr, width, height, 10) end
-theme.notification_width            = dpi(350)
-theme.notification_height           = dpi(70)
+theme.notification_width            = dpi(330)
+theme.notification_height           = dpi(65)
 theme.notification_margin           = dpi(8)
 
 -- Progressbar
@@ -78,7 +78,7 @@ theme.progressbar_border_color  = theme.dark_primary_color
 theme.progressbar_border_width  = dpi(10)
 
 -- Default wallpaper
-theme.wallpaper = themes_path.."miat/astronaut.jpg"
+theme.wallpaper = themes_path.."miat/arch-wallpaper.png"
 
 -- Icon theme
 theme.icon_theme = "~/.icons/Papirus"

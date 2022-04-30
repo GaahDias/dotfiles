@@ -23,13 +23,15 @@ local ram_widget = require("config.widgets.ram")
 -- Storage widget
 local storage_widget = require("config.widgets.storage")
 -- Clock widget
-local clock_widget = require("config.widgets.clock")
+local calendar_widget = require("config.widgets.calendar")
 -- Power widget
 local power_widget = require("config.widgets.power")
 -- Launcher widget
 local launcher_widget = require("config.widgets.launcher")
--- Systray widgets
+-- Systray widget
 local systray_widget = require("config.widgets.systray")
+-- Taglist widget
+local taglist_widget = require("config.widgets.taglist")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -99,6 +101,10 @@ local layout_names = {
 	fairh = "Fair Horizontal",
 }
 
+local popups = {
+	calendar_popup = calendar_widget.get_calendar_popup(),
+}
+
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     awful.layout.suit.tile,
@@ -160,9 +166,9 @@ screen.connect_signal("property::geometry", set_wallpaper)
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
-	
+
     -- Each screen has its own tag table.
-    awful.tag({ "main", "www", "code", "apps" }, s, awful.layout.layouts[1])
+    awful.tag({ "main", "www", "code", "apps", "games", "" }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -175,13 +181,9 @@ awful.screen.connect_for_each_screen(function(s)
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
     -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist {
-        screen  = s,
-        filter  = awful.widget.taglist.filter.all,
-        buttons = taglist_buttons
-    }
-    -- Create the wibar
-    s.mywibox = awful.wibar({ border_width = 6, height = dpi(38), position = "top", shape =
+    s.taglist = taglist_widget.get_taglist(s, taglist_buttons)
+	-- Create the wibar
+    s.wibox = awful.wibar({ border_width = 6, height = dpi(38), position = "top", shape =
 		function(cr, width, height) gears.shape.rounded_rect(cr, width, height, 25) end})
 
 	-- Create systray wibox
@@ -189,14 +191,14 @@ awful.screen.connect_for_each_screen(function(s)
 	s.systraywibox:connect_signal("mouse::leave", function() s.systraywibox.visible = false end)
 
     -- Add widgets to the wibox
-    s.mywibox:setup {
+    s.wibox:setup {
 		layout = wibox.layout.stack,
 		{
         	layout = wibox.layout.align.horizontal,
 			{ -- Left widgets
 				layout = wibox.layout.fixed.horizontal,
 				launcher_widget,
-				s.mytaglist,
+				s.taglist,
 			},
 			nil,
 			{ -- Right widgets
@@ -210,7 +212,7 @@ awful.screen.connect_for_each_screen(function(s)
 			}
 		},
 		{
-			clock_widget,
+			calendar_widget.get_calendar_widget(popups.calendar_popup),
         	valign = "center",
         	halign = "center",
         	layout = wibox.container.place
@@ -243,9 +245,6 @@ globalkeys = gears.table.join(
               {description = "view previous", group = "tag"}),
     awful.key({ modkey, "Control"    }, "Right",  awful.tag.viewnext,
               {description = "view next", group = "tag"}),
-    awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
-              {description = "go back", group = "tag"}),
-
 
     awful.key({ modkey,           }, "Right",
         function ()
@@ -333,10 +332,10 @@ globalkeys = gears.table.join(
     awful.key({ modkey }, "r", function()
 		awful.spawn("rofi -show drun -show-icons -theme miat") end,
         {description = "rofi drun", group = "launcher"}),
-	awful.key({ modkey }, "e", function()
+	awful.key({ modkey }, ".", function()
 		awful.spawn("rofi -show emoji -theme miat") end,
 		{description = "rofi emoji", group = "launcher"}),
-	awful.key({ modkey }, "c", function()
+	awful.key({ modkey }, "=", function()
 		awful.spawn("rofi -show calc -modi calc -no-show-match -no-sort -theme miat") end,
 		{description = "rofi calc", group = "launcher"}),
 	awful.key({ modkey }, "p", function()
@@ -354,7 +353,7 @@ globalkeys = gears.table.join(
               end,
               {description = "lua execute prompt", group = "awesome"}),
 
-	-- Apps 
+	-- Apps
 	awful.key({ modkey }, "b", function()
 		awful.util.spawn(browser) end,
 		{description = "launch firefox", group = "launcher"}),
@@ -369,6 +368,18 @@ globalkeys = gears.table.join(
 	awful.key({ modkey, "Shift" }, "Print", function()
 		awful.util.spawn("flameshot gui") end,
 		{description = "capture selected area", group = "screen"}),
+
+	-- Popups
+	awful.key({ modkey }, "Escape", function()
+			for k, v in pairs(popups) do
+				v.visible = false
+			end
+		end,
+		{description = "close popups", group = "screen"}),
+	awful.key({ modkey }, "c", function()
+		popups.calendar_popup.visible = not popups.calendar_popup.visible end,
+		{description = "launch calendar popup", group = "launcher"}),
+
 
 	-- Multimedia
 	awful.key({ }, "XF86AudioRaiseVolume", function()
@@ -428,7 +439,7 @@ clientkeys = gears.table.join(
         {description = "(un)maximize horizontally", group = "client"})
 )
 
-for i = 1, 4 do
+for i = 1, 5 do
     globalkeys = gears.table.join(globalkeys,
         -- View tag only.
         awful.key({ modkey }, "#" .. i + 9,
