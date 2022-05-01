@@ -1,3 +1,4 @@
+
 # My dotfiles
 
 Just the config for my Linux environment. I'm using Arch Linux along side with Awesomewm.
@@ -42,4 +43,6 @@ yay
 ![Screenshot 2](screenshots/desktop-screenshot2.png)
 
 ![Screenshot 3](screenshots/desktop-screenshot3.png)
+
+![Screenshot 4](screenshots/desktop-screenshot4.png)
 
