@@ -37,7 +37,7 @@ globalkeys = gears.table.join(
 			end
 		end,
 		{description = "go back", group = "client"}),
-	awful.key({ modkey, "Control" }, "n",
+	awful.key({ modkey, "Shift" }, "n",
 		function ()
 			local c = awful.client.restore()
 			-- Focus restored client
@@ -92,7 +92,7 @@ globalkeys = gears.table.join(
 					title = layout_names[awful.layout.getname()],
 					text="Layout changed"}) end,
         {description = "select next", group = "layout"}),
-    awful.key({ modkey, "Shift"   }, "space", 
+    awful.key({ modkey, "Shift"   }, "space",
 		function ()
 			awful.layout.inc(-1)
 			naughty.notify({
@@ -193,18 +193,24 @@ root.keys(globalkeys)
 
 -- Other client keys
 clientkeys = gears.table.join(
+	awful.key({ modkey, "Control" }, "f",
+        function (c)
+            c.fullscreen = not c.fullscreen
+            c:raise()
+        end,
+        {description = "toggle fullscreen", group = "client"}),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
-    awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end,
+    awful.key({ modkey, "Control" }, "t",      function (c) c.ontop = not c.ontop            end,
               {description = "toggle keep on top", group = "client"}),
-    awful.key({ modkey,           }, "n",
+    awful.key({ modkey, "Control" }, "n",
         function (c)
             -- The client currently has the input focus, so it cannot be
             -- minimized, since minimized clients can't have the focus.
             c.minimized = true
         end ,
         {description = "minimize", group = "client"}),
-    awful.key({ modkey,           }, "m",
+    awful.key({ modkey, "Control" }, "m",
         function (c)
             c.maximized = not c.maximized
             c:raise()
