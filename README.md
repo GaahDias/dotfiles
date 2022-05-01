@@ -43,3 +43,4 @@ yay
 
 ![Screenshot 3](screenshots/desktop-screenshot3.png)
 
+![Screenshot 4](screenshots/desktop-screenshot4.png)
