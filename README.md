@@ -25,11 +25,11 @@ Just the config for my Linux environment.
   * Markdown editor - MarkText
   
   * Audio/Video player - VLC
-
+  
   * Music player - Spotify
   
   * File manager - Nemo & Ranger
-
+  
   * Application launcher - Rofi
   
   * Browser - Firefox
@@ -43,3 +43,5 @@ Just the config for my Linux environment.
 ![Screenshot 2](screenshots/desktop-screenshot2.png)
 
 ![Screenshot 3](screenshots/desktop-screenshot3.png)
+
+![Screenshot 4](screenshots/desktop-screenshot4.png)
