@@ -1,12 +1,19 @@
+-- Use xprop to get info about windows
 -- Default apps:
 local defaultApps = {
 		terminal = "alacritty",
-        editor = "neovim",
+        code_editor = "neovim",
+		editor = "leafpad",
         browser = "firefox",
+		player = "vlc",
         music = "spotify",
         markdown = "marktext",
-        files = "nemo",
+        file_manager = "nemo",
 		discord = "discord",
+		messenger = "WhatsApp",
+		daw = "Ardour",
+		steam = "Steam",
+		lutris = "Lutris"
 }
 
 return defaultApps

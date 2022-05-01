@@ -5,16 +5,14 @@ pcall(require, "luarocks.loader")
 local awful = require("awful")
 local beautiful = require("beautiful")
 beautiful.init("~/.config/awesome/themes/miat/theme.lua")
-local default_apps = require("config.util.apps")
 
 require("config.error")
 
 -- Default apps
+default_apps = require("config.util.apps")
 terminal = default_apps.terminal
-editor = os.getenv("EDITOR") or default_apps.editor
-editor_cmd = terminal .. " -e " .. editor
-browser = default_apps.browser
-file_manager = default_apps.files
+editor = os.getenv("EDITOR") or default_apps.code_editor
+editor_cmd = terminal .. " -e " .. default_apps.code_editor
 
 -- Default modkey
 modkey = "Mod4"

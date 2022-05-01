@@ -48,8 +48,8 @@ globalkeys = gears.table.join(
 		{description = "restore minimized", group = "client"}),
 
 	-- LAUNCHER
-	awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
-              {description = "open a terminal", group = "launcher"}),
+	awful.key({ modkey,           }, "Return", function () awful.spawn(default_apps.terminal) end,
+              {description = "open " .. default_apps.terminal, group = "launcher"}),
 	-- Rofi
     awful.key({ modkey }, "r", function()
 		awful.spawn("rofi -show drun -show-icons -theme miat") end,
@@ -65,11 +65,11 @@ globalkeys = gears.table.join(
 		{description = "rofi power off", group = "launcher"}),
 	-- Apps
 	awful.key({ modkey }, "b", function()
-		awful.util.spawn(browser) end,
-		{description = "launch firefox", group = "launcher"}),
+		awful.util.spawn(default_apps.browser) end,
+		{description = "launch " .. default_apps.browser, group = "launcher"}),
 	awful.key({ modkey }, "f", function()
-		awful.util.spawn(file_manager) end,
-		{description = "launch nemo", group = "launcher"}),
+		awful.util.spawn(default_apps.file_manager) end,
+		{description = "launch " .. default_apps.file_manager, group = "launcher"}),
 	-- Popups
 	awful.key({ modkey }, "c", function()
 		popups.calendar_popup.visible = not popups.calendar_popup.visible end,
