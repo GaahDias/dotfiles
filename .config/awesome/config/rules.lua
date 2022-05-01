@@ -2,8 +2,33 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
 
+-- Since spotify is kinda buggy regarding it's wm_class, we need
+-- to set it's rules in client.lua
+
 -- Rules to apply to new clients (through the "manage" signal).
 awful.rules.rules = {
+	-- Firefox
+	{ rule = { class = default_apps.browser },
+  		properties = { tag = "www",
+				   	   switch_to_tags = true } },
+
+	-- Discord, Whatsapp
+	{ rule_any = { class = { default_apps.discord }, name = { default_apps.messenger } },
+  		properties = { tag = "apps",
+					   switch_to_tags = true } },
+
+	-- Steam, Lutris
+	{ rule_any = { class = { default_apps.steam, default_apps.lutris } },
+		properties = { tag = "games",
+					   maximized = true,
+					   switch_to_tags = true } },
+
+	-- VLC, Ardour
+	{ rule_any = { class = { default_apps.player }, name = { default_apps.daw } },
+		properties = { tag = "main",
+					   maximized = true,
+					   switch_to_tags = true } },
+
     -- All clients will match this rule.
     { rule = { },
       properties = { border_width = beautiful.border_width,
