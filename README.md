@@ -1,40 +1,39 @@
 # My dotfiles
 
-Just the config for my Linux environment.
+Just the config for my Linux environment. I'm using Arch Linux along side with Awesomewm.
 
-<br/>
-
-### Info
-
-* Operational System:
-  
-  * Arch Linux
-
-* WM:
-  
-  * Awesomewm
-
-* Apps:
-  
-  * Terminal - Alacritty
-  
-  * Shell - Fish
-  
-  * Text editor - Neovim & Leafpad
-  
-  * Markdown editor - MarkText
-  
-  * Audio/Video player - VLC
-  
-  * Music player - Spotify
-  
-  * File manager - Nemo & Ranger
-  
-  * Application launcher - Rofi
-  
-  * Browser - Firefox
-
-<br/>
+### Needed packages
+```
+alacritty
+alsa-utils
+awesome-git
+ctags
+feh
+firefox
+fish
+flameshot
+lightdm
+lightdm-slick-greeter
+lua
+lua-language-server
+lxappearance
+nemo
+neofetch
+neovim
+nerd-fonts-complete
+noto-fonts-emoji
+papirus-icon-theme
+pavucontrol
+picom-ibhagwan-git
+playerctl
+pulseaudio
+ranger
+rofi
+rofi-calc
+rofi-emoji
+rofi-power-menu
+yay
+```
 
 ### Screenshots
 
@@ -44,4 +43,3 @@ Just the config for my Linux environment.
 
 ![Screenshot 3](screenshots/desktop-screenshot3.png)
 
-![Screenshot 4](screenshots/desktop-screenshot4.png)
