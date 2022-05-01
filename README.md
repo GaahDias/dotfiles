@@ -24,6 +24,7 @@ nerd-fonts-complete
 noto-fonts-emoji
 papirus-icon-theme
 pavucontrol
+picom-ibhagwan-git
 playerctl
 pulseaudio
 ranger
@@ -31,6 +32,7 @@ rofi
 rofi-calc
 rofi-emoji
 rofi-power-menu
+yay
 ```
 
 ### Screenshots
