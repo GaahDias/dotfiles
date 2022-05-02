@@ -17,26 +17,6 @@ editor_cmd = terminal .. " -e " .. default_apps.code_editor
 -- Default modkey
 modkey = "Mod4"
 
--- Table with layout icons and names
-layout_icons = {
-	tile = beautiful.layout_tile,
-	tileleft = beautiful.layout_tileleft,
-	tilebottom = beautiful.layout_tilebottom,
-	tiletop = beautiful.layout_tiletop,
-	floating = beautiful.layout_floating,
-	fairv = beautiful.layout_fairv,
-	fairh = beautiful.layout_fairh,
-}
-layout_names = {
-	tile = "Tile Right",
-	tileleft = "Tile Left",
-	tilebottom = "Tile Bottom",
-	tiletop = "Tile Top",
-	floating = "Float",
-	fairv = "Fair Vertical",
-	fairh = "Fair Horizontal",
-}
-
 require("config.screen")
 require("config.keys")
 require("config.client")

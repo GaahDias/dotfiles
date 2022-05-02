@@ -2,6 +2,7 @@
 local awful = require("awful")
 local gears = require("gears")
 local wibox = require("wibox")
+local beautiful = require("beautiful")
 local dpi = require("beautiful.xresources").apply_dpi
 -- Widgets imports
 local volume_widget = require('config.widgets.volume')
@@ -37,11 +38,11 @@ local taglist_buttons = gears.table.join(
 
 -- Table of layouts
 awful.layout.layouts = {
+	awful.layout.suit.floating,
     awful.layout.suit.tile,
     --awful.layout.suit.tile.left,
     --awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
-	awful.layout.suit.floating,
     awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
     -- awful.layout.suit.spiral,
@@ -55,12 +56,54 @@ awful.layout.layouts = {
     -- awful.layout.suit.corner.se,
 }
 
+-- Table with layout icons and names
+layout_icons = {
+	tile = beautiful.layout_tile,
+	tileleft = beautiful.layout_tileleft,
+	tilebottom = beautiful.layout_tilebottom,
+	tiletop = beautiful.layout_tiletop,
+	floating = beautiful.layout_floating,
+	fairv = beautiful.layout_fairv,
+	fairh = beautiful.layout_fairh,
+}
+layout_names = {
+	tile = "Tile Right",
+	tileleft = "Tile Left",
+	tilebottom = "Tile Bottom",
+	tiletop = "Tile Top",
+	floating = "Float",
+	fairv = "Fair Vertical",
+	fairh = "Fair Horizontal",
+}
+
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", next_random_wallpaper)
 
 awful.screen.connect_for_each_screen(function(s)
-    -- Each screen has its own tag table.
-    awful.tag({ "main", "www", "code", "apps", "games", "" }, s, awful.layout.layouts[1])
+    -- Adding tags (workspaces)
+	awful.tag.add("main", {
+		layout = awful.layout.layouts[2], -- floating
+		screen = s,
+	})
+	awful.tag.add("www", {
+		layout = awful.layout.layouts[2], -- tile
+		screen = s,
+	})
+	awful.tag.add("code", {
+		layout = awful.layout.layouts[4], -- fairv
+		screen = s,
+	})
+	awful.tag.add("apps", {
+		layout = awful.layout.layouts[2], -- tile
+		screen = s,
+	})
+	awful.tag.add("games", {
+		layout = awful.layout.layouts[1], -- floating
+		screen = s,
+	})
+	awful.tag.add("", {
+		screen = s,
+	})
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
