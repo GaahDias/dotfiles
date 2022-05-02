@@ -13,7 +13,8 @@ local defaultApps = {
 		messenger = "WhatsApp",
 		daw = "Ardour",
 		steam = "Steam",
-		lutris = "Lutris"
+		lutris = "Lutris",
+		office = "DesktopEditors"
 }
 
 return defaultApps

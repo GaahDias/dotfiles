@@ -23,8 +23,8 @@ awful.rules.rules = {
 					   maximized = true,
 					   switch_to_tags = true } },
 
-	-- VLC, Ardour
-	{ rule_any = { class = { default_apps.player }, name = { default_apps.daw } },
+	-- VLC, Ardour, Onlyoffice
+	{ rule_any = { class = { default_apps.player, default_apps.office }, name = { default_apps.daw } },
 		properties = { tag = "main",
 					   maximized = true,
 					   switch_to_tags = true } },
