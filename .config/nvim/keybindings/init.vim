@@ -13,8 +13,8 @@ nnoremap <C-s> :w <CR>
 " Delete, cut
 nnoremap d "_d
 vnoremap d "_d
-nnoremap x "+dd
-vnoremap x "+dd
+nnoremap x "+d
+vnoremap x "+d
 
 " Split screen
 nnoremap <C-v> :vsplit <CR>
