@@ -16,6 +16,10 @@ vnoremap d "_d
 nnoremap x "+dd
 vnoremap x "+dd
 
+" Split screen
+nnoremap <C-v> :vsplit <CR>
+nnoremap <C-h> :split <CR>
+
 " Color picker
 nnoremap <A-h> :VCoolor <CR>
 nnoremap <A-r> :VCoolIns r <CR>
