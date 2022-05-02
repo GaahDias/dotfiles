@@ -84,6 +84,7 @@ awful.screen.connect_for_each_screen(function(s)
 	awful.tag.add("main", {
 		layout = awful.layout.layouts[2], -- floating
 		screen = s,
+		selected = true,
 	})
 	awful.tag.add("www", {
 		layout = awful.layout.layouts[2], -- tile
