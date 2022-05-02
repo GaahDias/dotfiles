@@ -3,6 +3,15 @@
 
 Just the config for my Linux environment. I'm using Arch Linux along side with Awesomewm.
 
+### Info
+
+* OS: Arch Linux
+* WM: Awesomewm
+* Shell: Fish
+* Terminal: Alacritty
+* GTK Theme: Skeuos-Blue-Dark
+* Icons: Papirus
+
 ### Needed packages
 ```
 alacritty
