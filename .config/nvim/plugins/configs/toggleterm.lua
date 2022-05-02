@@ -6,7 +6,11 @@ require("toggleterm").setup{
 	close_on_exit = true
 }
 
-local path = vim.v.argv[2]
+local path = ""
+
+if vim.v.argv[2] then
+	path = vim.v.argv[2]
+end
 
 if path:sub(1, 1) ~= "/" and path:sub(1, 1) ~= "~" then
 	path = "~/" .. path
