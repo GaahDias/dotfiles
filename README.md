@@ -37,6 +37,8 @@ pavucontrol
 picom-ibhagwan-git
 playerctl
 pulseaudio
+qt5ct
+qt5ct-styleplugins
 ranger
 rofi
 rofi-calc
