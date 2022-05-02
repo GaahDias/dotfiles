@@ -6,10 +6,15 @@ nnoremap <silent> <F7> :ToggleTerm <CR>
 nnoremap <silent> <F8> :lua _RANGER_TOGGLE() <CR>
 nnoremap <silent> <F9> :lua _HTOP_TOGGLE() <CR>
 
-" Quit, write, w&q
+" Quit, write
 nnoremap <C-q> :q! <CR>
-" nnoremap <C-w> :w! <CR>
 nnoremap <C-s> :w <CR>
+
+" Delete, cut
+nnoremap d "_d
+vnoremap d "_d
+nnoremap x "+dd
+vnoremap x "+dd
 
 " Color picker
 nnoremap <A-h> :VCoolor <CR>
