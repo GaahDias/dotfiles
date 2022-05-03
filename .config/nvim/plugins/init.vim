@@ -23,10 +23,12 @@ Plug 'glepnir/dashboard-nvim' " Dashboard
 Plug 'nvim-telescope/telescope.nvim' " Fuzzy finder, and also a Dashboard dependencie 
 Plug 'nvim-lua/plenary.nvim' " Telescope dependencie
 Plug 'kyazdani42/nvim-web-devicons' " Icons
+Plug 'ryanoasis/vim-devicons' " Icons
 Plug 'romgrk/barbar.nvim' " Files bar
 Plug 'akinsho/toggleterm.nvim' " Terminal
 Plug 'KabbAmine/vCoolor.vim' " Color picker
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' } " Color visualizer
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' } " Go 
 
 call plug#end()
 

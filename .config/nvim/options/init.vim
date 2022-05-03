@@ -6,3 +6,5 @@ set mouse=a
 set clipboard=unnamedplus
 set completeopt=menu,menuone,noselect
 set termguicolors
+set spelllang=en_US
+set autoindent
