@@ -22,8 +22,9 @@ require("config.keys")
 require("config.client")
 require("config.rules")
 
--- Autostart apps
+-- Autostart apps and scripts
 awful.spawn.with_shell("picom")
+awful.spawn("/etc/lightdm/randomize-ldm-wallpaper.sh ~/.wallpapers")
 
 -- Draw wallpaper
 init_wallpaper()
