@@ -38,14 +38,6 @@ config.bind('<Ctrl-m>', 'open qute://bookmarks/')
 config.bind('<Ctrl-=>', 'bookmark-add')
 config.bind('<Ctrl-Shift-=', 'bookmark-del')
 
-# Color theme
-primary_main_color   = '#85A4F3'
-secundary_main_color = '#8D91F6'
-primary_bg_color     = '#1A1919'
-secundary_bg_color   = '#454343'
-primary_fg_color     = '#E7E1E1'
-secundary_fg_color   = '#CAC5C5'
-
 # Font theme
 primary_font   = 'Sans'
 secundary_font = 'Hack'
@@ -56,6 +48,14 @@ c.fonts.completion.entry = f'11pt "{secundary_font}"'
 c.fonts.debug_console = f'11pt "{secundary_font}"'
 c.fonts.prompts = f'11pt "{secundary_font}"'
 c.fonts.statusbar = f'11pt "{secundary_font}"'
+
+# Color theme
+primary_main_color   = '#85A4F3'
+secundary_main_color = '#8D91F6'
+primary_bg_color     = '#1A1919'
+secundary_bg_color   = '#454343'
+primary_fg_color     = '#E7E1E1'
+secundary_fg_color   = '#CAC5C5'
 
 c.colors.completion.fg = secundary_fg_color
 c.colors.completion.odd.bg = primary_bg_color
