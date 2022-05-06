@@ -76,29 +76,32 @@ layout_names = {
 	fairh = "Fair Horizontal",
 }
 
+-- Array with tag names
+tag_names = { "main", "www", "code", "apps", "games" }
+
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", next_random_wallpaper)
 
 awful.screen.connect_for_each_screen(function(s)
     -- Adding tags (workspaces)
-	awful.tag.add("main", {
+	awful.tag.add(tag_names[1], {
 		layout = awful.layout.layouts[2], -- floating
 		screen = s,
 		selected = true,
 	})
-	awful.tag.add("www", {
+	awful.tag.add(tag_names[2], {
 		layout = awful.layout.layouts[2], -- tile
 		screen = s,
 	})
-	awful.tag.add("code", {
+	awful.tag.add(tag_names[3], {
 		layout = awful.layout.layouts[4], -- fairv
 		screen = s,
 	})
-	awful.tag.add("apps", {
+	awful.tag.add(tag_names[4], {
 		layout = awful.layout.layouts[2], -- tile
 		screen = s,
 	})
-	awful.tag.add("games", {
+	awful.tag.add(tag_names[5], {
 		layout = awful.layout.layouts[1], -- floating
 		screen = s,
 	})

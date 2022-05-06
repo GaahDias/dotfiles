@@ -65,11 +65,17 @@ globalkeys = gears.table.join(
 		{description = "rofi power off", group = "launcher"}),
 	-- Apps
 	awful.key({ modkey }, "b", function()
-		awful.util.spawn(default_apps.browser) end,
+		awful.spawn(default_apps.browser) end,
 		{description = "launch " .. default_apps.browser, group = "launcher"}),
+	awful.key({ modkey, "Mod1" }, "b", function()
+		awful.spawn(default_apps.alt_browser) end,
+		{description = "launch " .. default_apps.alt_browser, group = "launcher" }),
 	awful.key({ modkey }, "f", function()
-		awful.util.spawn(default_apps.file_manager) end,
+		awful.spawn(default_apps.file_manager) end,
 		{description = "launch " .. default_apps.file_manager, group = "launcher"}),
+	awful.key({ modkey, "Mod1" }, "f", function()
+		awful.spawn(terminal .. " -e " .. default_apps.alt_file_manager) end,
+		{description = "launch " .. default_apps.alt_file_manager, group = "launcher"}),
 	-- Popups
 	awful.key({ modkey }, "c", function()
 		popups.calendar_popup.visible = not popups.calendar_popup.visible end,
@@ -153,7 +159,7 @@ globalkeys = gears.table.join(
 )
 
 -- Create binds for each tag
-for i = 1, 5 do
+for i = 1, #tag_names do
     globalkeys = gears.table.join(globalkeys,
         -- View tag only.
         awful.key({ modkey }, "#" .. i + 9,

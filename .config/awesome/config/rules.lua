@@ -7,25 +7,30 @@ local beautiful = require("beautiful")
 
 -- Rules to apply to new clients (through the "manage" signal).
 awful.rules.rules = {
+	-- VLC, Ardour, Onlyoffice
+	{ rule_any = { class = { default_apps.player, default_apps.office }, name = { default_apps.daw } },
+		properties = { tag = tag_names[1],
+					   maximized = true,
+					   switch_to_tags = true } },
+
 	-- Firefox
 	{ rule = { class = default_apps.browser },
-  		properties = { tag = "www",
+  		properties = { tag = tag_names[2],
 				   	   switch_to_tags = true } },
+
+	-- Qutebrowser
+	{ rule = { class = default_apps.alt_browser },
+		properties = { tag = tag_names[3],
+					   switch_to_tags = true } },
 
 	-- Discord, Whatsapp
 	{ rule_any = { class = { default_apps.discord }, name = { default_apps.messenger } },
-  		properties = { tag = "apps",
+  		properties = { tag = tag_names[4],
 					   switch_to_tags = true } },
 
 	-- Steam, Lutris
 	{ rule_any = { class = { default_apps.steam, default_apps.lutris } },
-		properties = { tag = "games",
-					   maximized = true,
-					   switch_to_tags = true } },
-
-	-- VLC, Ardour, Onlyoffice
-	{ rule_any = { class = { default_apps.player, default_apps.office }, name = { default_apps.daw } },
-		properties = { tag = "main",
+		properties = { tag = tag_names[5],
 					   maximized = true,
 					   switch_to_tags = true } },
 
