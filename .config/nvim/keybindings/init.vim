@@ -25,8 +25,8 @@ nnoremap <A-h> :VCoolor <CR>
 nnoremap <A-r> :VCoolIns r <CR>
 
 " Tabs
-nnoremap <C-Left> :BufferPrevious <CR>
-nnoremap <C-Right> :BufferNext <CR>
+nnoremap <C-j> :BufferPrevious <CR>
+nnoremap <C-k> :BufferNext <CR>
 nnoremap <A-1> :BufferGoto 1 <CR> 
 nnoremap <A-2> :BufferGoto 2 <CR>
 nnoremap <A-3> :BufferGoto 3 <CR>
