@@ -39,6 +39,7 @@ playerctl
 pulseaudio
 qt5ct
 qt5ct-styleplugins
+qutebrowser
 ranger
 rofi
 rofi-calc
@@ -56,4 +57,5 @@ yay
 ![Screenshot 3](screenshots/desktop-screenshot3.png)
 
 ![Screenshot 4](screenshots/desktop-screenshot4.png)
+
 
