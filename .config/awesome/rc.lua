@@ -22,8 +22,9 @@ require("config.keys")
 require("config.client")
 require("config.rules")
 
--- Autostart apps and scripts
+-- Autostart commands
 awful.spawn.with_shell("picom")
+awful.spawn.with_shell("xset -dpms && xset s off") -- Disable monitor screen saver
 awful.spawn("/etc/lightdm/randomize-ldm-wallpaper.sh ~/.wallpapers")
 
 -- Draw wallpaper
